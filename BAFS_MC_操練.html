@@ -913,7 +913,6 @@ function trackAnswer(qYear,qNum,isCorrect){
   else{fbDb.ref("stats/answers/"+key+"/wrong").transaction(v=>(v||0)+1)}
   fbDb.ref("stats/answers/"+key+"/lastAnswer").set(now);
 }
-initFirebase();
 
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
