@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>Test</title>
+<style>
+body{font-family:sans-serif;padding:20px;background:#f0f4f8}
+.ytag{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid #ddd;background:#fff;margin:4px;display:inline-block}
+.ytag.on{background:#1565c0;color:#fff}
+.opt{padding:10px 14px;border:2px solid #e0e0e0;border-radius:8px;cursor:pointer;font-size:13px;margin:4px 0;display:block}
+.opt.correct{border-color:#2e7d32;background:#e8f5e9}
+.opt.wrong{border-color:#c62828;background:#ffebee}
+.opt.locked{pointer-events:none}
+.rtag.ok{color:#2e7d32;font-weight:700}.rtag.no{color:#c62828;font-weight:700}
+.exbox{background:#f8f9fa;border-radius:8px;padding:14px;margin:10px 0;display:none}
+</style>
+</head>
+<body>
+<h2>DSE MC Test (3 questions)</h2>
+<div id="yearBox"></div>
+<div id="qcard" style="background:#fff;padding:20px;border-radius:12px;margin-top:16px">
+<div id="qn" style="font-weight:700;color:#1565c0"></div>
+<div id="qt" style="font-size:12px;color:#888;margin:6px 0"></div>
+<div id="qtxt" style="white-space:pre-line;margin-bottom:14px"></div>
+<div id="qopts"></div>
+<div id="infoBar" style="display:none;margin:10px 0">
+<span id="rtag"></span> <span id="pctTxt" style="color:#666"></span>
+</div>
+<div class="exbox" id="exbox">
+<div id="excn"></div>
+<div id="exen"></div>
+</div>
+<div style="margin-top:14px">
+<button onclick="prev()" id="bpv" disabled>Prev</button>
+<button onclick="next()" id="bnx">Next</button>
+</div>
+</div>
+<script>
+const Q=[{q:1,year:2012,y:2012,top:"營商環境 —— 企業擁有權類型（有限合夥人的特徵）",topEn:"Business Environment —— Forms of Business Ownership (Characteristics of Limited Partners)",cn:"1. 一家連鎖便利店正為其中一家分店招聘店舖主管。以下哪項不是該新店舖主管的工作？\nA. 監督店內日常運作\nB. 指導店務助理\nC. 處理員工與顧客之間的糾紛\nD. 決定連鎖店的發展策略",en:"1. A convenience store chain is looking for a shop supervisor for one of its stores. Which of the following will not be a task for the new supervisor?\nA. monitor the daily operations of the shop\nB. coach shop assistants\nC. handle disputes between staff and customers\nD. decide on the development strategies for the chain",ans:"D",rate:"88%",exCn:"店舖主管屬於前線/中層管理人員，負責日常營運、監督基層店員及處理即時紛爭。而「決定整個連鎖集團的長遠發展策略」屬於「高層管理人員」的核心決策權。故答案為 D。",exEn:"A shop supervisor belongs to frontline/middle management whose duties are to oversee daily operations, coach assistants, and resolve disputes. Deciding on long-term development strategies is the responsibility of top management. Thus, D is correct."},
+
+{q:2,year:2012,y:2012,top:"基礎財務會計 —— 損益表組成項目與會計調整",topEn:"Financial Accounting —— Components of Income Statement and Adjustments",outc:true,reason:"自 2025 年起，所有涉及損益表、銷貨成本及各項調整的基礎會計與過帳實務，已全數移至選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, all introductory accounting practices and financial statement adjustments have been moved to Elective Module Paper 2A.",cn:"2. 收益表上，____須從銷貨中扣除，而____則須加進銷貨成本內。\nA. 銷貨退回;期末存貨\nB. 銷貨退回;購貨運費\nC. 購貨退出;期初存貨\nD. 購貨退出;銷貨運費",en:"2. In an income statement, ____ should be deducted from sales, while ____ should be added to the cost of goods sold.\nA. returns inwards; closing inventory\nB. returns inwards; carriage inwards\nC. returns outwards; opening inventory\nD. returns outwards; carriage outwards",ans:"B",rate:"83%",exCn:"1. 銷貨淨額 = 銷貨 - 銷貨退回，因此「銷貨退回」須從銷貨中扣除。\n2. 銷貨成本 = 期初存貨 + 購貨淨額 + 購貨運費 - 期末存貨，因此「購貨運費」必須加進銷貨成本內。\n故選 B。",exEn:"1. Net Sales = Sales - Returns inwards, so returns inwards should be deducted from sales.\n2. COGS = Opening inventory + Net purchases + Carriage inwards - Closing inventory, so carriage inwards must be added to COGS.\nThus, B is correct."},
+
+{q:3,year:2012,y:2012,top:"試算表 —— 帳戶結餘之借貸分類",topEn:"Financial Accounting —— Classification of Trial Balance Debit/Credit Balances",outc:true,reason:"自 2025 年起，試算表之編製、不平衡更正、以及科目借貸結餘歸類，已全數移至選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, trial balance preparation and debit/credit classification have been moved to Elective Module Paper 2A.",cn:"3. 以下哪個帳戶在試算表上必定為借方結餘？\n(1) 短期貸款 (2) 存貨 (3) 銀行結存 (4) 物業\nA. 只有(1)及(3)\nB. 只有(1)及(4)\nC. 只有(2)及(4)\nD. 只有(2)、(3)及(4)",en:"3. Which of the following accounts must carry a debit balance in a trial balance?\n(1) short-term loan (2) inventory (3) bank balance (4) premises\nA. (1) and (3) only\nB. (1) and (4) only\nC. (2) and (4) only\nD. (2), (3) and (4) only",ans:"C",rate:"52%",exCn:"(1) 短期貸款屬於負債，必定為貸方結餘。\n(2) 存貨屬於資產，必定為借方結餘。\n(3) 銀行結存正常情況為借方，但發生銀行透支時會轉為貸方，故非必定。\n(4) 物業屬於非流動資產，必定為借方結餘。\n故只有 (2) 和 (4) 必定為借方結餘，選 C。",exEn:"(1) Short-term loan is a liability and must carry a credit balance.\n(2) Inventory is an asset and must carry a debit balance.\n(3) Bank balance is normally a debit but can become credit (overdraft), so not always debit.\n(4) Premises are non-current assets and must carry a debit balance.\nTherefore, only (2) and (4) must carry a debit balance, which is option C."},];
+const L=["A","B","C","D"];
+let pool=[],cur=0,answered=[];
+
+pool=Q;answered=pool.map(()=>null);
+document.getElementById("qn").textContent="Q"+pool[0].q+" ("+pool[0].year+")";
+
+function render(){
+  var q=pool[cur];
+  document.getElementById("qn").textContent="Q"+q.q+" ("+q.year+")";
+  document.getElementById("qt").textContent=q.top||"";
+  var raw=(q.cn||"")+"\n\n"+(q.en||"");
+  document.getElementById("qtxt").innerHTML=raw.replace(/\n/g,"<br>");
+  var ob=document.getElementById("qopts");ob.innerHTML="";
+  var parts=raw.split(/(?=[A-D][\.\)]\s)/);
+  if(parts.length>=5){
+    var stem=parts[0].trim();
+    document.getElementById("qtxt").innerHTML=stem.replace(/\n/g,"<br>");
+    parts.slice(1,5).forEach(function(o,i){
+      var d=document.createElement("div");
+      d.className="opt";d.textContent=o;d.dataset.i=i;
+      if(answered[cur]!==null){
+        d.classList.add("locked");
+        var ai=L.indexOf(q.ans);if(i===ai)d.classList.add("correct");
+        if(i===answered[cur]&&i!==ai)d.classList.add("wrong");
+      }
+      d.onclick=function(){pick(i)};
+      ob.appendChild(d);
+    });
+  }
+  if(answered[cur]!==null){
+    document.getElementById("infoBar").style.display="flex";
+    var ai2=L.indexOf(q.ans);
+    var r=document.getElementById("rtag");
+    r.textContent=answered[cur]===ai2?"Correct":"Wrong";
+    r.className="rtag "+(answered[cur]===ai2?"ok":"no");
+    document.getElementById("pctTxt").textContent="Rate: "+(q.rate||"");
+    document.getElementById("exbox").style.display="block";
+    document.getElementById("excn").innerHTML=(q.exCn||"").replace(/\n/g,"<br>");
+    document.getElementById("exen").innerHTML=(q.exEn||"").replace(/\n/g,"<br>");
+  } else {
+    document.getElementById("infoBar").style.display="none";
+    document.getElementById("exbox").style.display="none";
+  }
+  document.getElementById("bpv").disabled=cur===0;
+  document.getElementById("bnx").textContent=cur===pool.length-1?"Done":"Next";
+}
+function pick(i){
+  if(answered[cur]!==null)return;
+  answered[cur]=i;render();
+}
+function next(){if(cur<pool.length-1){cur++;render()}}
+function prev(){if(cur>0){cur--;render()}}
+render();
+</script>
+</body>
+</html>
