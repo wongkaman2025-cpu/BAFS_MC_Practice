@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DSE BAFS MC - 老師後台</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",sans-serif;background:#faf6f0;color:#4a3728;line-height:1.7}
+.hdr{background:linear-gradient(135deg,#8b6342,#6b4a2e);color:#fff;padding:24px 20px;text-align:center}
+.hdr h1{font-size:20px;font-weight:500;letter-spacing:2px}
+.hdr p{font-size:12px;opacity:.8;margin-top:4px}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+.card{background:#fffdf8;border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(139,109,78,.08);border:1px solid #ebe3d8}
+.card h2{font-size:16px;color:#6b5344;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #f0e8dc}
+.login-box{max-width:400px;margin:60px auto;text-align:center}
+.login-box h2{font-size:18px;margin-bottom:20px;color:#6b5344}
+.login-box input{width:100%;padding:10px 14px;border:1px solid #d4c5b0;border-radius:10px;font-size:14px;background:#fffdf8;margin-bottom:12px}
+.login-box button{width:100%;padding:10px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;background:#8b6342;color:#fff;transition:.2s}
+.login-box button:hover{background:#6b4a2e}
+.login-box .err{color:#b85c5c;font-size:13px;margin-top:8px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:#faf3ea;border-radius:12px;padding:16px;text-align:center;border:1px solid #ebe3d8}
+.stat-card .num{font-size:28px;font-weight:700;color:#a67c52}
+.stat-card .label{font-size:12px;color:#8b7a6b;margin-top:4px}
+.rank-list{list-style:none}
+.rank-list li{display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid #f0e8dc;font-size:13px;gap:10px}
+.rank-list li:last-child{border-bottom:none}
+.rank-list .rank{font-weight:700;color:#a67c52;min-width:28px;font-size:14px}
+.rank-list .q-info{flex:1}
+.rank-list .q-info .q-title{font-weight:600;color:#6b5344;font-size:13px}
+.rank-list .q-info .q-topic{font-size:11px;color:#9e8c7a;margin-top:2px}
+.rank-list .q-stats{text-align:right;font-size:12px;color:#8b7a6b}
+.rank-list .wrong-count{font-weight:700;color:#b85c5c;font-size:14px}
+.rank-list .total-count{color:#6b5344}
+.rank-list .rate-bar{width:60px;height:6px;background:#ebe3d8;border-radius:3px;overflow:hidden;margin-top:4px}
+.rank-list .rate-fill{height:100%;border-radius:3px;transition:.3s}
+.tabs{display:flex;gap:0;margin-bottom:16px;border-radius:10px;overflow:hidden;border:1px solid #d4c5b0}
+.tab-btn{flex:1;padding:8px;font-size:13px;cursor:pointer;background:#fffdf8;border:none;font-weight:500;transition:.2s;color:#6b5344}
+.tab-btn.on{background:#8b6342;color:#fff}
+.tab-btn:hover:not(.on){background:#f5ebe0}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.daily-chart{display:flex;align-items:flex-end;gap:4px;height:120px;padding:10px 0;border-bottom:1px solid #ebe3d8}
+.daily-bar{flex:1;background:linear-gradient(to top,#c9a87c,#a67c52);border-radius:4px 4px 0 0;min-width:8px;transition:.3s;cursor:pointer;position:relative}
+.daily-bar:hover{opacity:.8}
+.daily-labels{display:flex;gap:4px;font-size:9px;color:#9e8c7a;padding-top:4px}
+.daily-labels span{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.back-link{display:inline-block;margin-top:16px;font-size:13px;color:#a67c52;text-decoration:none}
+.back-link:hover{text-decoration:underline}
+.sort-btn{background:none;border:1px solid #d4c5b0;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;color:#8b7a6b;transition:.2s}
+.sort-btn:hover{background:#f5ebe0}
+.sort-btn.active{background:#8b6342;color:#fff;border-color:#8b6342}
+.hidden{display:none!important}
+</style></head><body>
+<div class="hdr">
+<h1>📊 老師後台管理</h1>
+<p>DSE BAFS MC Practice — Admin Dashboard</p>
+</div>
+<div class="wrap">
+<div id="loginSection" class="login-box card">
+<h2>🔐 老師登入</h2>
+<input type="password" id="pwdInput" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doLogin()">
+<button onclick="doLogin()">登入</button>
+<div class="err hid" id="pwdErr">密碼錯誤，請重試</div>
+</div>
+<div id="dashboard" class="hidden">
+<div class="stats-grid" id="statsGrid"></div>
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+<h2 style="margin-bottom:0;border:none;padding:0">📈 每日練習趨勢</h2>
+</div>
+<div class="daily-chart" id="dailyChart"></div>
+<div class="daily-labels" id="dailyLabels"></div>
+</div>
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+<h2 style="margin-bottom:0;border:none;padding:0">🏆 最多學生答錯題目 TOP 20</h2>
+<div>
+<button class="sort-btn active" onclick="sortRank('wrong')" id="sortWrong">答錯次數</button>
+<button class="sort-btn" onclick="sortRank('rate')" id="sortRate">正確率最低</button>
+</div>
+</div>
+<ol class="rank-list" id="rankList"></ol>
+</div>
+<div class="card">
+<h2>📋 全部題目統計</h2>
+<div style="margin-bottom:10px">
+<input type="text" id="adminSearch" placeholder="搜尋題目..." style="padding:7px 12px;border-radius:8px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8;width:100%">
+</div>
+<ol class="rank-list" id="fullList"></ol>
+</div>
+<div style="text-align:center">
+<a class="back-link" href="BAFS_MC_操練.html">← 返回練習頁面</a>
+</div>
+</div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+const ADMIN_PWD="bafs2025";
+const firebaseConfig={apiKey:"AIzaSyD.placeholder",authDomain:"dse-bafs-mc.firebaseapp.com",databaseURL:"https://dse-bafs-mc-default-rtdb.firebaseio.com",projectId:"dse-bafs-mc",storageBucket:"dse-bafs-mc.appspot.com",messagingSenderId:"000000000",appId:"1:000000000:web:placeholder"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.database();
+
+let allAnswers=[];
+let currentSort="wrong";
+
+function doLogin(){
+  const pwd=document.getElementById("pwdInput").value;
+  if(pwd===ADMIN_PWD){
+    document.getElementById("loginSection").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+    loadDashboard();
+  }else{
+    document.getElementById("pwdErr").classList.remove("hidden");
+    setTimeout(()=>document.getElementById("pwdErr").classList.add("hidden"),2000);
+  }
+}
+
+function loadDashboard(){
+  db.ref("stats").once("value",snap=>{
+    const data=snap.val()||{};
+    const visits=data.visits||{};
+    const totalVisits=data.totalVisits||0;
+    const answers=data.answers||{};
+    let totalAnswered=0,totalCorrect=0,totalWrong=0;
+    allAnswers=[];
+    Object.keys(answers).forEach(key=>{
+      const a=answers[key];
+      const times=a.times||0;
+      const correct=a.correct||0;
+      const wrong=a.wrong||0;
+      totalAnswered+=times;
+      totalCorrect+=correct;
+      totalWrong+=wrong;
+      const parts=key.split("-");
+      const year=parts[0];
+      const qNum=parts.slice(1).join("-");
+      allAnswers.push({key:key,year:year,q:qNum,times:times,correct:correct,wrong:wrong,rate:times>0?Math.round(correct/times*100):0});
+    });
+    const uniqueDays=Object.keys(visits).length;
+    const today=new Date().toISOString().slice(0,10);
+    const todayVisits=visits[today]||0;
+    document.getElementById("statsGrid").innerHTML=
+      '<div class="stat-card"><div class="num">'+totalVisits+'</div><div class="label">總瀏覽次數</div></div>'+
+      '<div class="stat-card"><div class="num">'+todayVisits+'</div><div class="label">今日瀏覽</div></div>'+
+      '<div class="stat-card"><div class="num">'+totalAnswered+'</div><div class="label">總答題次數</div></div>'+
+      '<div class="stat-card"><div class="num">'+(totalAnswered>0?Math.round(totalCorrect/totalAnswered*100):0)+'%</div><div class="label">平均正確率</div></div>'+
+      '<div class="stat-card"><div class="num">'+allAnswers.length+'</div><div class="label">已答題目數</div></div>'+
+      '<div class="stat-card"><div class="num">'+uniqueDays+'</div><div class="label">使用天數</div></div>';
+    renderChart(visits);
+    renderRank();
+    renderFullList();
+  });
+}
+
+function renderChart(visits){
+  const chart=document.getElementById("dailyChart");
+  const labels=document.getElementById("dailyLabels");
+  const days=[];
+  for(let i=13;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    days.push(d.toISOString().slice(0,10));
+  }
+  const vals=days.map(d=>visits[d]||0);
+  const maxV=Math.max(...vals,1);
+  chart.innerHTML="";
+  labels.innerHTML="";
+  days.forEach((d,i)=>{
+    const h=Math.round(vals[i]/maxV*100);
+    const bar=document.createElement("div");
+    bar.className="daily-bar";
+    bar.style.height=Math.max(h,2)+"%";
+    bar.title=d+": "+vals[i]+" 次";
+    chart.appendChild(bar);
+    const lbl=document.createElement("span");
+    lbl.textContent=d.slice(5);
+    labels.appendChild(lbl);
+  });
+}
+
+function renderRank(){
+  const list=document.getElementById("rankList");
+  const sorted=[...allAnswers].filter(a=>a.times>0);
+  if(currentSort==="wrong"){sorted.sort((a,b)=>b.wrong-a.wrong)}
+  else{sorted.sort((a,b)=>a.rate-b.rate)}
+  const top=sorted.slice(0,20);
+  if(!top.length){list.innerHTML='<li style="justify-content:center;color:#9e8c7a">暫無答題數據</li>';return}
+  list.innerHTML="";
+  top.forEach((a,i)=>{
+    const rateColor=a.rate>=60?"#6b8e5a":"#b85c5c";
+    const li=document.createElement("li");
+    li.innerHTML='<span class="rank">'+(i+1)+'</span>'+
+      '<div class="q-info"><div class="q-title">Q'+a.q+' ('+a.year+')</div><div class="q-topic">答 '+a.times+' 次</div></div>'+
+      '<div class="q-stats"><div class="wrong-count">✗ '+a.wrong+'</div><div class="rate-bar"><div class="rate-fill" style="width:'+a.rate+'%;background:'+rateColor+'"></div></div><div>正確率 '+a.rate+'%</div></div>';
+    list.appendChild(li);
+  });
+}
+
+function renderFullList(filter){
+  const list=document.getElementById("fullList");
+  let sorted=[...allAnswers].filter(a=>a.times>0);
+  if(filter){
+    const kw=filter.toLowerCase();
+    sorted=sorted.filter(a=>(a.key+" "+a.year+" "+a.q).toLowerCase().includes(kw));
+  }
+  sorted.sort((a,b)=>b.wrong-a.wrong);
+  if(!sorted.length){list.innerHTML='<li style="justify-content:center;color:#9e8c7a">暫無數據</li>';return}
+  list.innerHTML="";
+  sorted.forEach(a=>{
+    const rateColor=a.rate>=60?"#6b8e5a":"#b85c5c";
+    const li=document.createElement("li");
+    li.innerHTML='<div class="q-info"><div class="q-title">Q'+a.q+' ('+a.year+')</div></div>'+
+      '<div class="q-stats"><span class="total-count">答 '+a.times+'</span> <span class="wrong-count">✗ '+a.wrong+'</span> <span style="color:'+rateColor+'">'+a.rate+'%</span></div>';
+    list.appendChild(li);
+  });
+}
+
+function sortRank(type){
+  currentSort=type;
+  document.getElementById("sortWrong").classList.toggle("active",type==="wrong");
+  document.getElementById("sortRate").classList.toggle("active",type==="rate");
+  renderRank();
+}
+
+document.getElementById("adminSearch").addEventListener("input",function(){
+  renderFullList(this.value.trim());
+});
+</script>
+</body></html>

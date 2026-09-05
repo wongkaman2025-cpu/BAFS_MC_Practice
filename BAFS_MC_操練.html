@@ -110,6 +110,7 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <button class="btn bo" onclick="toggleNotes()" style="font-size:12px;padding:5px 14px">📒 筆記本</button>
 <button class="btn bo wb-btn" onclick="showWrongBook()" style="font-size:12px;padding:5px 14px">📕 錯題簿<span class="wb-badge hid" id="wbBadge"></span></button>
 <button class="btn bo" onclick="showProgress()" style="font-size:12px;padding:5px 14px">📊 練習紀錄</button>
+<a href="admin.html" class="btn bo" style="font-size:12px;padding:5px 14px;text-decoration:none">🔧 後台管理</a>
 </div>
 </div>
 <div class="wrap">
@@ -653,11 +654,13 @@ function pick(i){
   if(answered[cur]!==null)return;
   answered[cur]=i;
   const ai=L.indexOf(pool[cur].ans);
-  if(i===ai){
+  const isCorrect=i===ai;
+  if(isCorrect){
     score++;
     if(isWrongBookPractice)removeFromWrongBook(pool[cur].year+"-"+pool[cur].q);
   }
   else addToWrongBook(pool[cur]);
+  trackAnswer(pool[cur].year,pool[cur].q,isCorrect);
   render();
 }
 function next(){
@@ -883,6 +886,38 @@ var eb=document.getElementById("yearBox1");
 if(eb)eb.innerHTML="<pre style='color:red'>JS Error: "+e.message+"</pre>";
 }
 
+// === Firebase Tracking ===
+const firebaseConfig={apiKey:"AIzaSyD.placeholder",authDomain:"dse-bafs-mc.firebaseapp.com",databaseURL:"https://dse-bafs-mc-default-rtdb.firebaseio.com",projectId:"dse-bafs-mc",storageBucket:"dse-bafs-mc.appspot.com",messagingSenderId:"000000000",appId:"1:000000000:web:placeholder"};
+let fbDb=null;
+function initFirebase(){
+  try{
+    if(typeof firebase!=='undefined'&&firebase.database){
+      firebase.initializeApp(firebaseConfig);
+      fbDb=firebase.database();
+      trackVisit();
+    }
+  }catch(e){console.log("Firebase init skipped:",e.message)}
+}
+function trackVisit(){
+  if(!fbDb)return;
+  const today=new Date().toISOString().slice(0,10);
+  fbDb.ref("stats/visits/"+today).transaction(v=>(v||0)+1);
+  fbDb.ref("stats/totalVisits").transaction(v=>(v||0)+1);
+}
+function trackAnswer(qYear,qNum,isCorrect){
+  if(!fbDb)return;
+  const key=qYear+"-"+qNum;
+  const now=new Date().toISOString();
+  fbDb.ref("stats/answers/"+key+"/times").transaction(v=>(v||0)+1);
+  if(isCorrect){fbDb.ref("stats/answers/"+key+"/correct").transaction(v=>(v||0)+1)}
+  else{fbDb.ref("stats/answers/"+key+"/wrong").transaction(v=>(v||0)+1)}
+  fbDb.ref("stats/answers/"+key+"/lastAnswer").set(now);
+}
+initFirebase();
+
 </script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>initFirebase();</script>
 </body>
 </html>
