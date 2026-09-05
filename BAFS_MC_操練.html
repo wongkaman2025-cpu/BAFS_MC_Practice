@@ -50,7 +50,9 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 .lang-btn{padding:6px 16px;font-size:12px;cursor:pointer;background:#fffdf8;border:none;font-weight:500;transition:.2s;color:#6b5344}
 .lang-btn.on{background:#a67c52;color:#fff}
 .out-c{font-size:11px;background:#fdf5e6;color:#b8860b;padding:2px 8px;border-radius:8px;font-weight:500;margin-left:6px}
-.timer{font-size:18px;font-weight:600;color:#a67c52;font-variant-numeric:tabular-nums;min-width:70px;text-align:center}
+.timer{font-size:18px;font-weight:600;color:#a67c52;font-variant-numeric:tabular-nums;min-width:70px;text-align:center;transition:color .3s}
+.timer.countdown{color:#b85c5c;font-size:20px;animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 .wb{position:fixed;top:0;right:-400px;width:380px;max-width:90vw;height:100vh;background:#fffdf8;box-shadow:-4px 0 20px rgba(107,83,68,.15);z-index:1000;transition:.3s;overflow-y:auto;padding:20px;border-left:1px solid #ebe3d8}
 .wb.open{right:0}
 .wb-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #ebe3d8}
@@ -133,6 +135,22 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <option value="100">100 題</option>
 <option value="0">全部</option>
 </select>
+</div>
+<h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">⏱️ 倒計時模式</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
+<input type="checkbox" id="countdownToggle" style="width:16px;height:16px;accent-color:#a67c52">
+<span>啟用倒計時</span>
+</label>
+<select id="countdownTime" style="padding:6px 12px;border-radius:6px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8" disabled>
+<option value="300">5 分鐘</option>
+<option value="600">10 分鐘</option>
+<option value="900">15 分鐘</option>
+<option value="1200" selected>20 分鐘</option>
+<option value="1800">30 分鐘</option>
+<option value="2700">45 分鐘</option>
+</select>
+<span id="countdownHint" style="font-size:12px;color:#9e8c7a">時間到會自動交卷</span>
 </div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center">
 <button class="btn bp" onclick="go()">開始操練</button>
@@ -449,8 +467,37 @@ function updCount(){
   document.getElementById("qcount").textContent="共 "+total+" 題，本次練習 "+show+" 題";
 }
 
+let countdownMode=false,countdownTotal=0,countdownRemain=0;
+document.getElementById("countdownToggle").onchange=function(){
+  document.getElementById("countdownTime").disabled=!this.checked;
+  document.getElementById("countdownHint").textContent=this.checked?"時間到會自動交卷":"";
+};
 function fmtTime(s){const m=Math.floor(s/60);return String(m).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
-function startTimer(){stopTimer();timerSec=0;timerRunning=true;document.getElementById("sTimer").textContent="00:00";timerInterval=setInterval(()=>{timerSec++;document.getElementById("sTimer").textContent=fmtTime(timerSec)},1000)}
+function startTimer(){
+  stopTimer();timerSec=0;timerRunning=true;
+  const isCD=document.getElementById("countdownToggle").checked;
+  if(isCD){
+    countdownMode=true;
+    countdownTotal=parseInt(document.getElementById("countdownTime").value);
+    countdownRemain=countdownTotal;
+    document.getElementById("sTimer").textContent=fmtTime(countdownRemain);
+    document.getElementById("sTimer").classList.add("countdown");
+    timerInterval=setInterval(()=>{
+      countdownRemain--;
+      document.getElementById("sTimer").textContent=fmtTime(countdownRemain);
+      if(countdownRemain<=0){
+        clearInterval(timerInterval);timerInterval=null;timerRunning=false;
+        alert("⏱️ 時間到！自動交卷");
+        showRes();
+      }
+    },1000);
+  }else{
+    countdownMode=false;
+    document.getElementById("sTimer").textContent="00:00";
+    document.getElementById("sTimer").classList.remove("countdown");
+    timerInterval=setInterval(()=>{timerSec++;document.getElementById("sTimer").textContent=fmtTime(timerSec)},1000);
+  }
+}
 function stopTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null}timerRunning=false}
 
 function go(){
@@ -609,12 +656,14 @@ function prev(){if(cur>0){cur--;render()}}
 
 function showRes(){
   stopTimer();
+  document.getElementById("sTimer").classList.remove("countdown");
   recordProgress();
   document.getElementById("qcard").classList.add("hid");
   document.getElementById("res").style.display="block";
   const pct=Math.round(score/pool.length*100);
   document.getElementById("rPct").textContent=pct+"%";
-  document.getElementById("rDt").textContent="答對 "+score+" / "+pool.length+" 題";
+  const timeUsed=countdownMode?(countdownTotal-countdownRemain):timerSec;
+  document.getElementById("rDt").textContent="答對 "+score+" / "+pool.length+" 題 | 用時 "+fmtTime(timeUsed);
   document.getElementById("rBf").style.width=pct+"%";
   document.getElementById("rWbCount").textContent=wrongBook.length;
 }
@@ -726,14 +775,16 @@ let progress=JSON.parse(localStorage.getItem("bafsProgress")||"[]");
 function saveProgress(){localStorage.setItem("bafsProgress",JSON.stringify(progress))}
 function recordProgress(){
   const pct=Math.round(score/pool.length*100);
+  const timeUsed=countdownMode?(countdownTotal-countdownRemain):timerSec;
+  let modeStr=isWrongBookPractice?"錯題簿":(countdownMode?"倒計時模式":"普通練習");
   progress.push({
     date:new Date().toISOString(),
     total:pool.length,
     correct:score,
     wrong:pool.length-score,
     pct:pct,
-    time:timerSec,
-    mode:isWrongBookPractice?"錯題簿":"普通練習"
+    time:timeUsed,
+    mode:modeStr
   });
   saveProgress();
 }
