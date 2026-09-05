@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2014 DSE BAFS MC 中英對照解析指南</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f0f4f8;color:#333;line-height:1.6}
+.hdr{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;padding:24px 20px;text-align:center}
+.hdr h1{font-size:20px;margin-bottom:4px}
+.hdr p{font-size:13px;opacity:.85}
+.hdr a{color:#fff;text-decoration:underline;font-size:13px;opacity:.85}
+.hdr a:hover{opacity:1}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tbl-wrap{overflow-x:auto;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{border:1px solid #e0e0e0;padding:6px 8px;text-align:center}
+th{background:#e3f2fd;font-weight:700;color:#1565c0}
+td{font-weight:600}
+.outc-cell{background:#fff3e0;color:#e65100}
+.lang-toggle{display:flex;gap:0;margin-bottom:10px;border-radius:8px;overflow:hidden;border:1px solid #ddd}
+.lang-btn{padding:6px 16px;font-size:12px;cursor:pointer;background:#fff;border:none;font-weight:600;transition:.2s}
+.lang-btn.on{background:#1565c0;color:#fff}
+.qnum{font-size:18px;font-weight:700;color:#1565c0}
+.qtopic{font-size:12px;color:#888;margin:6px 0 10px;line-height:1.5}
+.outc-tag{font-size:11px;background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:8px;font-weight:600;margin-left:6px}
+.qtext{font-size:14px;margin-bottom:14px;white-space:pre-line}
+.qopts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.opt{padding:10px 14px;border:2px solid #e0e0e0;border-radius:8px;font-size:13px;white-space:pre-line;cursor:pointer;transition:.15s}
+.opt:hover{border-color:#1565c0;background:#f5f9ff}
+.opt.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:600}
+.opt.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c;font-weight:600}
+.opt.locked{cursor:default;pointer-events:none}
+.info-row{display:flex;gap:12px;align-items:center;margin:10px 0;font-size:13px;flex-wrap:wrap}
+.info-row.hidden{display:none}
+.rtag{padding:3px 10px;border-radius:12px;font-weight:700;font-size:12px}
+.rtag.ans{background:#e8f5e9;color:#2e7d32}
+.rtag.ok{background:#e8f5e9;color:#2e7d32}
+.rtag.no{background:#ffebee;color:#c62828}
+.pct{color:#666}
+.exbox{background:#f8f9fa;border-radius:8px;padding:14px;margin:10px 0;cursor:pointer}
+.exbox.hidden{display:none}
+.exbox .exh{font-weight:700;margin-bottom:8px;font-size:14px;user-select:none}
+.excn,.exen{font-size:12px;line-height:1.7;margin-bottom:8px;white-space:pre-line}
+.exen{color:#555}
+.exbox .exbody{display:none}
+.exbox.open .exbody{display:block}
+.exbox .arrow{float:right;transition:.2s}
+.exbox.open .arrow{transform:rotate(90deg)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.toc a{padding:5px 12px;border-radius:20px;font-size:12px;text-decoration:none;background:#e3f2fd;color:#1565c0;font-weight:600;transition:.2s}
+.toc a:hover{background:#1565c0;color:#fff}
+.expert-box{background:#fff3e0;border-left:4px solid #e65100;border-radius:0 8px 8px 0;padding:16px;margin:16px 0;font-size:13px;line-height:1.7}
+.expert-box h3{color:#e65100;margin-bottom:8px;font-size:15px}
+.back-top{display:block;text-align:center;padding:10px;color:#1565c0;font-weight:600;font-size:13px;text-decoration:none;margin-top:10px}
+.back-top:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="hdr">
+<h1>2014 DSE 企會財 MC 中英對照完美解析指南</h1>
+<p>HKDSE BAFS Paper 1 Section A — Bilingual MC Guide</p>
+<div style="margin-top:8px"><a href="BAFS_MC_操練.html">← 返回 MC 操練首頁</a></div>
+</div>
+<div class="wrap">
+
+<div class="card">
+<h2 style="font-size:15px;margin-bottom:10px">📌 導言 Introduction</h2>
+<p style="font-size:13px;line-height:1.7;margin-bottom:8px">本解析指南已嚴謹對照最新 2025 DSE 課程補充資料。所有已從新必修考綱中完全刪除、或自 2025 年起已被歸入卷二（選修會計單元 Paper 2A）的題目，均已明確標註為 <code style="background:#fff3e0;padding:2px 6px;border-radius:4px;color:#e65100;font-weight:700">[out c]</code>。</p>
+<p style="font-size:13px;line-height:1.7">This bilingual guide is fully aligned with the 2025 HKDSE curriculum. All questions transferred to Paper 2A or removed are marked as <code style="background:#fff3e0;padding:2px 6px;border-radius:4px;color:#e65100;font-weight:700">[out c]</code>.</p>
+</div>
+
+<div class="card">
+<h2 style="font-size:15px;margin-bottom:10px">📊 2014 年選擇題官方答案及考生正確率總表</h2>
+<h3 style="font-size:13px;color:#888;margin-bottom:10px">Answer Key & Passing Rates</h3>
+<div class="tbl-wrap">
+<table>
+<thead>
+<tr><th>題號</th><th>答案 (正確率)</th><th>題號</th><th>答案 (正確率)</th><th>題號</th><th>答案 (正確率)</th></tr>
+</thead>
+<tbody>
+<tr><td><b>Q1</b></td><td><b>A (83%)</b></td><td><b>Q11</b></td><td class="outc-cell"><b>D (62%) [out c]</b></td><td><b>Q21</b></td><td class="outc-cell"><b>C (90%) [out c]</b></td></tr>
+<tr><td><b>Q2</b></td><td><b>B (56%)</b></td><td><b>Q12</b></td><td><b>C (57%)</b></td><td><b>Q22</b></td><td><b>A (75%)</b></td></tr>
+<tr><td><b>Q3</b></td><td><b>C (91%)</b></td><td><b>Q13</b></td><td><b>D (58%)</b></td><td><b>Q23</b></td><td class="outc-cell"><b>A (75%) [out c]</b></td></tr>
+<tr><td><b>Q4</b></td><td><b>C (41%)</b></td><td><b>Q14</b></td><td class="outc-cell"><b>C (85%) [out c]</b></td><td><b>Q24</b></td><td><b>D (72%)</b></td></tr>
+<tr><td><b>Q5</b></td><td class="outc-cell"><b>B (82%) [out c]</b></td><td><b>Q15</b></td><td><b>A (71%)</b></td><td><b>Q25</b></td><td><b>B (73%)</b></td></tr>
+<tr><td><b>Q6</b></td><td><b>C (44%)</b></td><td><b>Q16</b></td><td class="outc-cell"><b>C (52%) [out c]</b></td><td><b>Q26</b></td><td class="outc-cell"><b>C (60%) [out c]</b></td></tr>
+<tr><td><b>Q7</b></td><td><b>D (78%)</b></td><td><b>Q17</b></td><td><b>B (74%)</b></td><td><b>Q27</b></td><td><b>D (78%)</b></td></tr>
+<tr><td><b>Q8</b></td><td><b>A (57%)</b></td><td><b>Q18</b></td><td class="outc-cell"><b>B (74%) [out c]</b></td><td><b>Q28</b></td><td><b>A (52%)</b></td></tr>
+<tr><td><b>Q9</b></td><td class="outc-cell"><b>A (76%) [out c]</b></td><td><b>Q19</b></td><td class="outc-cell"><b>A (75%) [out c]</b></td><td><b>Q29</b></td><td class="outc-cell"><b>D (68%) [out c]</b></td></tr>
+<tr><td><b>Q10</b></td><td class="outc-cell"><b>B (80%) [out c]</b></td><td><b>Q20</b></td><td class="outc-cell"><b>D (80%) [out c]</b></td><td><b>Q30</b></td><td><b>B (54%)</b></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h2 style="font-size:15px;margin-bottom:10px">📑 快速導航 Quick Navigation</h2>
+<div class="toc" id="toc"></div>
+</div>
+
+<div id="questions"></div>
+
+<div class="expert-box">
+<h3>💡 企會財專家給您的 2025 新制卷一備考提示</h3>
+<p>在 2014 年這份卷一選擇題中，有高達 <b>13 題</b> 屬於 2025 新考綱中已被移往選修部分或完全刪除的題目。這意味著：</p>
+<p><b>精準減負 43%</b>：在複習卷一（必修部分）時，您可以直接跳過標註了 <code>[out c]</code> 的 13 道題目，將精力 100% 集中於剩下 17 道精華必修題！</p>
+<p style="margin-top:6px"><b>Focus on Key Topics</b>：多加練習 Q1 有限公司特徵、Q4 強積金制度、Q13 NPV 應用、Q17 SMART目標、Q27 金融產品風險、Q28 信貸記錄等核心題目。</p>
+</div>
+
+<a href="#" class="back-top">↑ 返回頂部</a>
+</div>
+
+<script>
+const D=[
+{q:1,y:2014,top:"營商環境 —— 企業擁有權類型（有限公司特徵）",topEn:"Business Environment —— Forms of Business Ownership (Characteristics of limited companies)",cn:"1. 下列哪項有關香港的有限公司的陳述是正確的？\n(1) 有限公司是一個獨立的法定個體。\n(2) 有限公司較獨資商號享有較低的利得稅稅率。\n(3) 有限公司必須在報章上發布其財務報表。\nA. 只有(1)\nB. 只有(2)\nC. 只有(1)及(3)\nD. (1)、(2)及(3)",en:"1. Which of the following statements about limited companies in Hong Kong is/are correct?\n(1) A limited company is a separate legal entity.\n(2) Limited companies enjoy a lower profits tax rate than sole proprietorships.\n(3) Limited companies are required to publish their financial statements in a newspaper.\nA. (1) only\nB. (2) only\nC. (1) and (3) only\nD. (1), (2) and (3)",ans:"A",rate:"83%",exCn:"1. **(1) 正確**：有限公司具有「獨立法定個體」地位，在法律上獨立於其股東。\n2. **(2) 錯誤**：有限公司適用的利得稅率（兩級制下首200萬為8.25%，其後為16.5%）高於非法團企業（首200萬為7.5%，其後為15%）。\n3. **(3) 錯誤**：只有「公眾有限公司」才需要依法公開披露財務報表，大部分有限公司均為「私人有限公司」。\n故只有 (1) 正確，選 A。",exEn:"1. **(1) is correct**: A limited company is a separate legal entity distinct from its owners.\n2. **(2) is incorrect**: The profits tax rate for limited companies (8.25% / 16.5%) is higher than that for unincorporated businesses (7.5% / 15%).\n3. **(3) is incorrect**: Only public limited companies are required to publish their financial statements.\nTherefore, only (1) is correct, making A the correct answer."},
+
+{q:2,y:2014,top:"基礎個人理財 —— 金融服務消費者的權利與責任（監管機構職能）",topEn:"Basics of Personal Financial Management —— Rights and Responsibilities of Financial Consumers (Functions of regulators)",cn:"2. 如投資者欲就經紀在股票交易中的不當行為提出投訴，他應向下列哪個機構提出？\nA. 香港金融管理局\nB. 證券及期貨事務監察委員會\nC. 香港交易及結算所有限公司\nD. 投資者賠償有限公司",en:"2. If an investor wants to complain about the misconduct of his broker in a share transaction, which of the following organisations should he turn to?\nA. Hong Kong Monetary Authority\nB. Securities and Futures Commission\nC. Hong Kong Exchanges and Clearing Limited\nD. Investor Compensation Company Limited",ans:"B",rate:"56%",exCn:"1. **證券及期貨事務監察委員會（證監會，SFC）**是負責監管香港證券及期貨市場的法定獨立機構。調查及處理有關持牌中介人的不當行為屬於其核心監管職能。\n2. 金管局（A）監管銀行業；港交所（C）營運交易平台；投資者賠償公司（D）負責處理因中介人違責倒閉而引起的賠償申索。",exEn:"1. The **Securities and Futures Commission (SFC)** is the statutory regulatory body responsible for regulating Hong Kong's securities and futures markets.\n2. The HKMA (A) regulates banking; HKEX (C) operates the trading platform; the Investor Compensation Company (D) handles compensation claims in cases of intermediary default."},
+
+{q:3,y:2014,top:"營商環境 —— 商業道德及社會責任（企業履行社會責任的好處）",topEn:"Business Environment —— Business Ethics and Social Responsibility (Benefits of corporate social responsibility)",cn:"3. 承擔社會責任的企業會有下列哪些好處？\n(1) 降低生產成本\n(2) 提高企業聲譽\n(3) 吸引同樣關注社會責任的顧客\nA. 只有(1)及(2)\nB. 只有(1)及(3)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"3. Which of the following are benefits of being a socially responsible business?\n(1) lower production costs\n(2) better business reputation\n(3) attraction of customers who are also concerned about social responsibility\nA. (1) and (2) only\nB. (1) and (3) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"C",rate:"91%",exCn:"1. **(1) 錯誤**：履行社會責任通常在短期內會「增加」而非降低企業的生產或營運成本。\n2. **(2)及(3) 正確**：實踐 CSR 能顯著提升企業的聲譽（(2)），並能吸引重視環保與社會正義的消費者（(3)）。\n故只有 (2) 及 (3) 正確，選 C。",exEn:"1. **(1) is incorrect**: Fulfilling CSR usually \"increases\" rather than lowers production costs in the short run.\n2. **(2) and (3) are correct**: CSR enhances a firm's public image and helps build a loyal customer base among socially conscious consumers.\nTherefore, (2) and (3) are benefits, making C the correct answer."},
+
+{q:4,y:2014,top:"基礎個人理財 —— 策劃個人理財及投資（強積金制度供款特徵）",topEn:"Basics of Personal Financial Management —— Personal Financial Planning & Investment (MPF contribution characteristics)",cn:"4. 下列哪項有關強制性公積金(強積金)制度的陳述是正確的？\nA. 自僱人士毋須參加強積金計劃。\nB. 受強積金制度涵蓋的僱員須按其入息的5%作出供款。\nC. 除了定期強制性供款外，僱員還可選擇額外自願性供款。\nD. 強積金計劃成員年屆60歲，便可提取其累算權益。",en:"4. Which of the following statements about the Mandatory Provident Fund (MPF) system is correct?\nA. Self-employed persons are not required to enrol in an MPF scheme.\nB. Employees covered by the MPF system are required to contribute 5% of their income.\nC. Employees can choose to make extra voluntary contributions in addition to the regular mandatory contributions.\nD. MPF scheme members can withdraw their accrued benefits when they reach the age of 60.",ans:"C",rate:"41%",exCn:"1. **A 錯誤**：自僱人士（18至65歲）必須依法強制加入強積金計劃並供款。\n2. **B 錯誤**：供款比例為5%只限於「介乎最低與最高有關入息水平」之間的僱員，並非無條件按「全部入息」的5%供款。\n3. **C 正確**：強積金計劃允許成員在法定強制性供款之外，自願做出額外之「自願性供款」。\n4. **D 錯誤**：強積金提取累算權益的法定年齡為65歲。",exEn:"1. **A is incorrect**: Self-employed persons aged 18-65 must enrol in an MPF scheme.\n2. **B is incorrect**: The 5% contribution rate is subject to statutory minimum and maximum income levels.\n3. **C is correct**: Employees can choose to make additional voluntary contributions on top of mandatory contributions.\n4. **D is incorrect**: The statutory retirement age for withdrawing MPF benefits is 65."},
+
+{q:5,y:2014,top:"基礎會計 —— 會計假設與概念（企業個體假設與提用科目）",topEn:"Introduction to Accounting —— Accounting Assumptions & Principles (Business entity concept and drawings)",outc:true,reason:"自 2025 年起，基礎會計（包括會計基本假設、提用與日記帳分錄）已被完全移至選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, introductory accounting topics are removed from Paper 1 and are now tested in Elective Module Paper 2A.",cn:"5. 某商號一直把給予顧客的免費樣本開支記作促銷費用。東主在年底取了一些免費樣本自用，根據______觀念，這些免費樣本應作______處理。\nA. 企業個體…… 促銷費用\nB. 企業個體…… 提用\nC. 一貫性…… 促銷費用\nD. 一貫性…… 提用",en:"5. It is a firm's practice to record free samples given to customers as promotion expenses. At the year end, the owner of the firm took some free samples for his personal use. According to the _______ concept, these free samples should be treated as _______.\nA. business entity... promotion expenses\nB. business entity... drawings\nC. consistency... promotion expenses\nD. consistency... drawings",ans:"B",rate:"82%",exCn:"1. **企業個體觀念**規定企業與其東主在會計上是完全分離的兩個個體。\n2. 當東主提取企業的免費樣本供「私人用途」時，必須記入**「提用（Drawings）」**帳戶。故選 B。",exEn:"1. The **business entity concept** states that a business is treated as a separate accounting entity distinct from its owner(s).\n2. When the owner takes free samples for personal use, this must be recorded as **drawings**. Thus, B is correct."},
+
+{q:6,y:2014,top:"基礎管理 —— 中小型企業的特徵",topEn:"Basics of Management —— Small and Medium Enterprises (SMEs characteristics)",cn:"6. 下列哪些有關香港中小型企業(中小企)的陳述是正確的？\n(1) 中小企是指僱用少於50人的企業。\n(2) 中小企為香港提供大多數就業機會。\n(3) 中小企通常補足大型公司未有提供的產品和服務。\nA. 只有(1)及(2)\nB. 只有(1)及(3)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"6. Which of the following statements about small and medium enterprises (SMEs) in Hong Kong are correct?\n(1) An SME employs fewer than 50 persons.\n(2) SMEs contribute a majority of employment opportunities in Hong Kong.\n(3) SMEs often provide products and services that complement large companies.\nA. (1) and (2) only\nB. (1) and (3) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"C",rate:"44%",exCn:"1. **(1) 錯誤**：製造業企業為僱用少於100人，而非製造業企業才是少於50人。\n2. **(2) 正確**：本港98%以上的公司為中小企，提供了絕大多數的就業崗位。\n3. **(3) 正確**：中小企靈活度高，通常能提供大型企業未有覆蓋的互補產品和服務。\n故只有 (2) 及 (3) 正確，選 C。",exEn:"1. **(1) is incorrect**: A manufacturing enterprise employs fewer than 100 persons; a non-manufacturing enterprise employs fewer than 50.\n2. **(2) is correct**: SMEs constitute over 98% of businesses in Hong Kong and contribute the majority of employment.\n3. **(3) is correct**: SMEs can customize niche products or services that complement large corporations.\nTherefore, (2) and (3) are correct, making C the correct answer."},
+
+{q:7,y:2014,top:"營商環境 —— 香港的營商環境（金融市場的參與者）",topEn:"Business Environment —— Hong Kong's Business Environment (Participants in financial markets)",cn:"7. 下列哪些是金融市場的參與者？\n(1) 上市公司\n(2) 商業銀行\n(3) 證券經紀\nA. 只有(1)及(2)\nB. 只有(1)及(3)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"7. Which of the following are participants in the financial market?\n(1) listed companies\n(2) commercial banks\n(3) securities brokers\nA. (1) and (2) only\nB. (1) and (3) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"D",rate:"78%",exCn:"1. 金融市場的參與者包含資金的供給方、需求方、以及各類中介機構：\n   - **(1) 上市公司**：作為資金的需求方直接參與金融市場。\n   - **(2) 商業銀行**：作為金融中介機構，是金融市場的主要參與者。\n   - **(3) 證券經紀**：協助投資者在二級市場上執行交易。\n因此 (1)、(2)、(3) 均為金融市場參與者，選 D。",exEn:"1. Financial market participants include capital providers, demanders, and intermediaries:\n   - **(1) Listed companies** act as capital demanders.\n   - **(2) Commercial banks** are major financial intermediaries.\n   - **(3) Securities brokers** execute trades in secondary markets.\nTherefore, (1), (2), and (3) are all participants, making D the correct answer."},
+
+{q:8,y:2014,top:"基礎個人理財 —— 消費者信貸（信用卡的機制與利率）",topEn:"Basics of Personal Financial Management —— Consumer Credit (Mechanisms and interest of credit cards)",cn:"8. 下列哪些有關信用卡的陳述是正確的？\n(1) 設有信用限額\n(2) 結欠設有最低還款額\n(3) 如在到期日前繳付最低還款額，餘額不會徵收利息\nA. 只有(1)及(2)\nB. 只有(1)及(3)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"8. Which of the following statements about credit cards are correct?\n(1) It has credit limit.\n(2) The outstanding balance has minimum payment.\n(3) If the minimum payment is made by the due date, no interest will be charged on the remaining balance.\nA. (1) and (2) only\nB. (1) and (3) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"A",rate:"57%",exCn:"1. **(1)及(2) 正確**：信用卡設有最高累計消費上限（信用限額）；每月結單設有法定的「最低還款額」。\n2. **(3) 錯誤**：如果僅支付最低還款額而未全數清還，發卡銀行會對剩餘結欠徵收極高年息（通常超過30%）。\n故只有 (1) 及 (2) 正確，選 A。",exEn:"1. **(1) and (2) are correct**: Credit cards have a credit limit and a minimum payment requirement.\n2. **(3) is incorrect**: If only the minimum payment is made, the card issuer will charge high interest on the remaining unpaid balance.\nTherefore, only (1) and (2) are correct, making A the correct answer."},
+
+{q:9,y:2014,top:"財務報表分析 —— 變現能力比率（速動比率倒推存貨）",topEn:"Financial Ratio Analysis —— Liquidity Ratios (Quick ratio and inventory calculation)",outc:true,reason:"自 2025 年起，財務比率的深入分析、指標公式計算及會計比率解讀已全數歸入選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, in-depth financial ratio analysis and interpretation of accounting ratios are moved to Elective Module Paper 2A.",cn:"9. 2013年12月31日，昆頓公司的流動負債為$60000，流動比率為3:1，速動比率則為2:1，該日其存貨額是多少？\nA. $60 000\nB. $120 000\nC. $180 000\nD. $240 000",en:"9. On 31 December 2013, Quinton Company had current liabilities of $60 000, a current ratio of 3:1 and a liquid ratio of 2:1. What was the amount of its inventory on that day?\nA. $60 000\nB. $120 000\nC. $180 000\nD. $240 000",ans:"A",rate:"76%",exCn:"1. **流動資產** = $60,000 × 3 = $180,000\n2. **速動資產** = $60,000 × 2 = $120,000\n3. **存貨** = 流動資產 - 速動資產 = $180,000 - $120,000 = **$60,000**。故選 A。",exEn:"1. **Current Assets** = $60,000 × 3 = $180,000\n2. **Quick Assets** = $60,000 × 2 = $120,000\n3. **Inventory** = Current Assets - Quick Assets = $180,000 - $120,000 = **$60,000**. Therefore, A is correct."},
+
+{q:10,y:2014,top:"試算表 —— 試算表借貸不平衡之原因及簿記錯誤",topEn:"Trial Balance —— Arithmetical Imbalance and Double-entry Errors",outc:true,reason:"自 2025 年起，試算表編製、試算表不平衡、暫記帳及錯誤更正等課題，已被全數移至選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, trial balance preparation, imbalances, suspense accounts, and correction of errors are moved to Elective Module Paper 2A.",cn:"10. 如果試算表的借方結餘總和比貸方結餘總和大，這表示\nA. 本年度有虧損\nB. 複式記帳有錯誤\nC. 沒有足夠資本以營運業務\nD. 資產總額比負債總額大",en:"10. If the total of the debit column of a trial balance is larger than the total of the credit column, this indicates that\nA. there is a net loss for the year\nB. there is an error in the double entry bookkeeping\nC. there is insufficient capital to run the business\nD. the amount of total assets is larger than the total liabilities",ans:"B",rate:"80%",exCn:"1. 試算表的核心功能是藉由「借方總和 = 貸方總和」來檢視分類帳過帳的算術準確度。\n2. 任何導致借貸不相等的狀況，唯一代表在複式記帳過程中發生了**錯誤**，故選 B。",exEn:"1. The fundamental purpose of a trial balance is to verify the arithmetical accuracy of ledger postings.\n2. If the debit and credit columns do not balance, it uniquely indicates a **bookkeeping error**. Thus, B is correct."},
+
+{q:11,y:2014,top:"損益表與財務比率 —— 根據毛利率及銷貨成本倒推銷貨額",topEn:"Profit & Loss and Accounting Ratios —— Calculating Sales via COGS and Gross Profit Ratio",outc:true,reason:"自 2025 年起，銷貨成本核算、損益表科目細項調整與毛利等相關計算，已全數被歸入選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, COGS calculations, income statement adjustments, and gross profit ratio calculations are moved to Elective Module Paper 2A.",cn:"11. 某企業的毛利率為25%。試根據以下數據計算其銷貨額：\n期初存貨: $10 000 | 期末存貨: $4 000 | 購貨: $51 000 | 銷售費用: $1 500\nA. $69 375\nB. $71 250\nC. $74 000\nD. $76 000",en:"11. A firm's gross profit ratio is 25%. Based on the following data, calculate its sales:\nOpening inventory: $10 000 | Closing inventory: $4 000 | Purchases: $51 000 | Selling expenses: $1 500\nA. $69 375\nB. $71 250\nC. $74 000\nD. $76 000",ans:"D",rate:"62%",exCn:"1. **銷貨成本** = $10,000 + $51,000 - $4,000 = $57,000\n2. **銷貨額** = $57,000 / (1 - 25%) = $57,000 / 0.75 = **$76,000**。故選 D。",exEn:"1. **COGS** = $10,000 + $51,000 - $4,000 = $57,000\n2. **Sales** = $57,000 / 0.75 = **$76,000**. Therefore, D is correct."},
+
+{q:12,y:2014,top:"基礎個人理財 —— 以證券交易作投資（證券市場與發行特徵）",topEn:"Basics of Personal Financial Management —— Stock Trading as Investment (Securities market features)",cn:"12. 以下哪項有關證券市場的陳述是正確的？\n(1) 投資者可在一手市場買入和賣出證券。\n(2) 二手市場包括交易所市場和場外交易市場。\n(3) 上市公司可透過證券市場發行新股籌集資金。\nA. 只有(1)\nB. 只有(2)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"12. Which of the following statements about the securities market is/are correct?\n(1) Investors can buy and sell securities in the primary market.\n(2) The secondary market comprises the listed exchanges and the over-the-counter market.\n(3) A listed company may issue new shares to raise funds through the securities market.\nA. (1) only\nB. (2) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"C",rate:"57%",exCn:"1. **(1) 錯誤**：一手市場僅供發行機構向認購者首度發行全新證券，投資者不能在此進行賣出。\n2. **(2) 正確**：二手市場包含交易所市場及場外交易市場（OTC）。\n3. **(3) 正確**：上市公司可透過證券市場發行新股籌集資金。\n故只有 (2) 及 (3) 正確，選 C。",exEn:"1. **(1) is incorrect**: The primary market is solely for the initial sale of new securities; investors cannot sell here.\n2. **(2) is correct**: The secondary market consists of organized exchanges and the OTC market.\n3. **(3) is correct**: Listed companies can issue new shares to raise funds.\nTherefore, (2) and (3) are correct, making C the correct answer."},
+
+{q:13,y:2014,top:"基礎個人理財 —— 金錢的時間值（淨現值評估所需數據）",topEn:"Basics of Personal Financial Management —— Time Value of Money (Required variables for Net Present Value)",cn:"13. 愛莎擬以淨現值來決定是否購買一件辦公室設備。她需要下列哪些資料來作決定？\n(1) 資金成本\n(2) 購置和使用該辦公室設備所引致的現金流\n(3) 該辦公室設備在使用年限完結時的殘值\nA. 只有(1)及(2)\nB. 只有(1)及(3)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"13. Elsa plans to use the net present value to decide whether to buy a piece of office equipment. Which of the following pieces of information does she need to make the decision?\n(1) cost of capital\n(2) cash flows arising from acquisition and use of the office equipment\n(3) residual value of the office equipment at the end of its useful life\nA. (1) and (2) only\nB. (1) and (3) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"D",rate:"58%",exCn:"在進行 NPV 資本預算評估時：\n* **(1) 需要**：資金成本作為折現率。\n* **(2) 需要**：購置與使用期間的各期現金流。\n* **(3) 需要**：期末殘值是最後一期重要的額外現金流入。\n因此 (1)、(2)、(3) 皆是不可或缺的決策數據，選 D。",exEn:"To calculate NPV for capital budgeting:\n* **(1) is required**: Cost of capital serves as the discount rate.\n* **(2) is required**: The initial cash outflow and subsequent cash flows are essential.\n* **(3) is required**: Residual value is an important cash inflow in the final year.\nTherefore, (1), (2), and (3) are all required, making D the correct answer."},
+
+{q:14,y:2014,top:"複式記帳與會計循環 —— 會計循環各步驟的先後順序",topEn:"Double-entry and Accounting Cycle —— Chronological Sequence of Accounting Cycle Steps",outc:true,reason:"自 2025 年起，整個會計循環已全數歸入選修部分會計單元（Paper 2A）考核。",reasonEn:"Starting from 2025, the accounting cycle steps are moved to Elective Module Paper 2A.",cn:"14. 在會計循環中，繼原始分錄簿後的流程是什麼？\n(1) 期末調整 (2) 財務報表 (3) 分類帳 (4) 試算表\nA. (2) -> (1) -> (3) -> (4)\nB. (1) -> (2) -> (4) -> (3)\nC. (3) -> (4) -> (1) -> (2)\nD. (4) -> (3) -> (1) -> (2)",en:"14. In the accounting cycle, what is the process after the books of original entry?\n(1) Period-end adjustments (2) Financial statements (3) Ledgers (4) Trial balance\nA. (2) -> (1) -> (3) -> (4)\nB. (1) -> (2) -> (4) -> (3)\nC. (3) -> (4) -> (1) -> (2)\nD. (4) -> (3) -> (1) -> (2)",ans:"C",rate:"85%",exCn:"在會計循環中，繼原始分錄簿後的順序為：\n1. 過帳至**分類帳 (3)**\n2. 編製**試算表 (4)**\n3. **期末調整 (1)**\n4. 編製**財務報表 (2)**\n正確順序為 **(3) -> (4) -> (1) -> (2)**，選 C。",exEn:"After the books of original entry, the sequence is:\n1. Post to **ledgers (3)**\n2. Prepare **trial balance (4)**\n3. Make **period-end adjustments (1)**\n4. Prepare **financial statements (2)**\nThe correct sequence is **(3) -> (4) -> (1) -> (2)**, making C the correct answer."},
+
+{q:15,y:2014,top:"營商環境 —— 影響商業決策的因素（宏觀經濟因素之分辨）",topEn:"Business Environment —— Factors Affecting Business Decisions (Identifying macroeconomic factors)",cn:"15. 下列哪項例子是影響一家香港珠寶店業務的經濟因素？\n(1) 內地旅客的收入及消費力上升。\n(2) 內地政府讓更多內地城市的居民到香港個人遊。\n(3) 跨境交通配套改善。\nA. 只有(1)\nB. 只有(2)\nC. 只有(1)及(3)\nD. 只有(2)及(3)",en:"15. Which of the following is/are the example(s) of economic factors that might affect the business of a jewellery shop in Hong Kong?\n(1) There is an increase in the income and consumption power of mainland tourists.\n(2) The mainland government allows residents of more cities to come to Hong Kong for individual visits.\n(3) The cross-border transport facilities are improved.\nA. (1) only\nB. (2) only\nC. (1) and (3) only\nD. (2) and (3) only",ans:"A",rate:"71%",exCn:"嚴格區分 PEEST 外在環境因素：\n* **(1) 屬於經濟因素**：收入及消費力的升降是經典的宏觀經濟指標。\n* **(2) 屬於政治及法律因素**：內地政府對個人遊政策的審批是政府政策變動。\n* **(3) 屬於自然地理因素**：跨境交通配套屬於基礎建設改善。\n故只有 (1) 正確，選 A。",exEn:"Under PEEST analysis:\n* **(1) is an economic factor**: Income and consumption power are macroeconomic indicators.\n* **(2) is a political/legal factor**: The government's visa policy is a regulatory change.\n* **(3) is a physical factor**: Transport infrastructure improvements are physical environment changes.\nTherefore, only (1) is an economic factor, making A the correct answer."},
+
+{q:16,y:2014,top:"基礎會計 —— 購置非流動資產之估值（歷史成本與營業折扣）",topEn:"Introduction to Accounting —— Capitalizing Non-current Assets (Historical cost and trade discounts)",outc:true,reason:"自 2025 年起，非流動資產的購置成本資本化核算、折舊計算等已全數歸入選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, capitalization of non-current assets and depreciation calculations are moved to Elective Module Paper 2A.",cn:"16. 2013年12月30日，某商號購買一輛貨車，以支票支付$150 000。貨車的定價是$243 000，營業折扣則為$15 000。2013年12月31日，其市值跌至$200 000。該貨車在2013年12月31日的財務狀況表中應記錄為\nA. $150 000\nB. $200 000\nC. $228 000\nD. $243 000",en:"16. On 30 December 2013, a firm bought a motor van and made a payment of $150 000 by cheque. The van's list price was $243 000 and a trade discount of $15 000 was given. As at 31 December 2013, its market value had fallen to $200 000. The van should be recorded at _______ in the statement of financial position as at 31 December 2013.\nA. $150 000\nB. $200 000\nC. $228 000\nD. $243 000",ans:"C",rate:"52%",exCn:"1. 根據**歷史成本原則**，資產必須以其「實際購置成本」入帳。\n2. **實際購置成本** = 定價 $243,000 - 營業折扣 $15,000 = **$228,000**。\n3. 支付金額 $150,000 與市值波動均不影響歷史成本的判定。故選 C。",exEn:"1. According to the **historical cost principle**, assets must be recorded at actual acquisition cost.\n2. **Actual cost** = List price $243,000 - Trade discount $15,000 = **$228,000**.\n3. Amount paid and market value fluctuations do not affect the historical cost. Thus, C is correct."},
+
+{q:17,y:2014,top:"基礎管理 —— 管理功能（計劃：SMART目標準則的應用）",topEn:"Basics of Management —— Management Functions (Planning: Applying SMART objectives)",cn:"17. 陳先生是某大型連鎖超級市場的總經理，他為連鎖店訂下目標:「我們要盡快把九龍區的營業額增加10%。」這目標未能符合下列哪項訂定良好目標的準則？\n(1) 具體的 (2) 具時限的 (3) 可量度的\nA. 只有(1)\nB. 只有(2)\nC. 只有(1)及(3)\nD. 只有(2)及(3)",en:"17. Mr Chan is the general manager of a large supermarket chain. He sets a target: \"We will increase the sales volume of the Kowloon area by 10% as soon as possible.\" Which of the following criteria for setting good objectives is/are NOT met?\n(1) specific (2) time-bound (3) measurable\nA. (1) only\nB. (2) only\nC. (1) and (3) only\nD. (2) and (3) only",ans:"B",rate:"74%",exCn:"使用 SMART 原則審視：\n* **(1) 符合「具體」**：指出了具體區域「九龍區」及指標「營業額」。\n* **(2) 不符合「具時限」**：「盡快」是模糊字眼，無明確截止時限。\n* **(3) 符合「可量度」**：給予了確切的量化百分比「10%」。\n因此僅未能符合「具時限」準則，選 B。",exEn:"Under SMART criteria:\n* **(1) is met (Specific)**: The goal targets a specific region and indicator.\n* **(2) is NOT met (Time-bound)**: \"As soon as possible\" is vague with no clear deadline.\n* **(3) is met (Measurable)**: The goal specifies a quantified target of 10%.\nTherefore, only (2) is not met, making B the correct answer."},
+
+{q:18,y:2014,top:"損益表與會計科目 —— 購貨折扣增加對毛利與淨利的影響",topEn:"P&L and Accounting Terminology —— Impact of discounts received on gross and net profit",outc:true,reason:"自 2025 年起，現金折扣與貿易折扣的會計學科歸類及損益表內部的細項核算已全數移至選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, classification of cash and trade discounts and P&L calculations are moved to Elective Module Paper 2A.",cn:"18. 購貨折扣增加對毛利和淨利有什麼影響？\n毛利 / 淨利\nA. 不變 / 不變\nB. 不變 / 上升\nC. 上升 / 不變\nD. 上升 / 上升",en:"18. How will an increase in discounts received affect the gross profit and net profit?\nGross profit / Net profit\nA. unchanged / unchanged\nB. unchanged / increases\nC. increases / unchanged\nD. increases / increases",ans:"B",rate:"74%",exCn:"1. **購貨折扣**被歸類為「其他收益」，列在毛利之後。\n2. **對毛利的影響**：毛利 = 銷貨淨額 - 銷貨成本，購貨折扣不影響貿易利潤，**毛利不變**。\n3. **對淨利的影響**：淨利 = 毛利 + 其他收益 - 營運費用，其他收益增加令**淨利上升**。\n故選 B。",exEn:"1. **Discounts received** are classified as \"Other income\", listed below gross profit.\n2. **Impact on Gross Profit**: Gross profit = Net Sales - COGS; discounts received do not affect it, so **gross profit remains unchanged**.\n3. **Impact on Net Profit**: Net profit = Gross Profit + Other Income - Expenses; an increase in other income **increases net profit**.\nThus, B is correct."},
+
+{q:19,y:2014,top:"財務報表分析 —— 會計比率核算（僅有損益表可計算之比率）",topEn:"Financial Ratio Analysis —— Accounting Ratios (Ratios calculable solely from the Income Statement)",outc:true,reason:"自 2025 年起，所有關於會計比率的核算已全數被移至選修部分會計單元（Paper 2A）考核。",reasonEn:"Starting from 2025, the calculation and composition of accounting ratios are moved to Elective Module Paper 2A.",cn:"19. 若只有損益表，可計算下列哪項會計比率？\n(1) 淨利率 (2) 速動比率 (3) 運用資金報酬率\nA. 只有(1)\nB. 只有(2)\nC. 只有(3)\nD. 只有(1)及(3)",en:"19. If only the income statement is available, which of the following accounting ratios can be calculated?\n(1) net profit margin (2) quick ratio (3) return on capital employed\nA. (1) only\nB. (2) only\nC. (3) only\nD. (1) and (3) only",ans:"A",rate:"75%",exCn:"1. **(1) 可計算**：淨利率 = 淨利 / 銷貨額，兩者皆從損益表獲取。\n2. **(2) 不可計算**：速動比率需要流動資產與流動負債，來自財務狀況表。\n3. **(3) 不可計算**：運用資金報酬率需要「運用資金」，來自財務狀況表。\n故只有 (1) 符合，選 A。",exEn:"1. **(1) can be calculated**: Net profit margin = Net Profit / Sales, both from the income statement.\n2. **(2) cannot be calculated**: Quick ratio requires current assets/liabilities from the statement of financial position.\n3. **(3) cannot be calculated**: ROCE requires capital employed from the statement of financial position.\nTherefore, only (1) can be calculated, making A the correct answer."},
+
+{q:20,y:2014,top:"不同企業擁有權類型的財務報告編製 —— 財務報表的使用者與資訊需要",topEn:"SFP and Income Statement —— Users of Financial Statements and Their Information Needs",outc:true,reason:"自 2025 年起，財務報表的用途、使用者類型及各自的資訊需要已歸入選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, the purposes of financial statements and types of users are moved to Elective Module Paper 2A.",cn:"20. ______是財務報表的外部使用者，關注公司的變現能力和償債能力。\nA. 管理人員\nB. 顧客\nC. 競爭對手\nD. 貸款人",en:"20. ______ is/are external user(s) of financial statements who are concerned about the liquidity and solvency of a company.\nA. managers\nB. customers\nC. competitors\nD. lenders",ans:"D",rate:"80%",exCn:"1. **外部使用者**是指非公司日常經營決策核心人員（排除 A）。\n2. **貸款人（Lenders）**是典型的外部使用者，最為關注公司的「變現能力」和「償債能力」，以保障其資金安全。\n故選 D。",exEn:"1. **External users** are individuals outside the daily operations (eliminates A).\n2. **Lenders** are key external users highly concerned about liquidity and solvency to protect their funds.\nThus, D is correct."},
+
+{q:21,y:2014,top:"基礎管理 —— 管理功能（目標管理 MBO 的評估）",topEn:"Basics of Management —— Management Functions (Evaluation of Management by Objectives)",outc:true,reason:"自 2025 年起，目標管理（MBO）已從必修部分考綱中完全刪除。",reasonEn:"Starting from 2025, Management by Objectives (MBO) is completely removed from the Compulsory Part.",cn:"21. 目標管理(MBO)有下列哪些優點？\n(1) 減少文書工作\n(2) 能更有效監控下屬的工作進度\n(3) 有助加強不同職級之間的協調\nA. 只有(1)及(2)\nB. 只有(1)及(3)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"21. Which of the following are the advantages of Management by Objectives (MBO)?\n(1) reduce paperwork\n(2) more effectively monitor the progress of subordinates\n(3) help enhance coordination between different levels\nA. (1) and (2) only\nB. (1) and (3) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"C",rate:"90%",exCn:"1. **(1) 錯誤**：實行 MBO 需要頻繁開會、撰寫目標報告，會**增加**文書工作。\n2. **(2) 正確**：MBO 強調制定明確量化目標，便於監控工作進度。\n3. **(3) 正確**：主管與員工共同協調設定目標，有助加強團隊協調配合。\n故只有 (2) 及 (3) 正確，選 C。",exEn:"1. **(1) is incorrect**: Implementing MBO requires frequent meetings and reports, increasing paperwork.\n2. **(2) is correct**: MBO emphasizes clear, measurable objectives for monitoring progress.\n3. **(3) is correct**: Joint goal-setting enhances collaboration across different levels.\nTherefore, only (2) and (3) are advantages, making C the correct answer."},
+
+{q:22,y:2014,top:"中小型企業 —— 企業家與中小型企業的特徵",topEn:"Small and Medium Enterprises —— Entrepreneurship and Characteristics of Entrepreneurs",cn:"【背景資料】何力在一家資訊科技公司任職多年。他在去年辭職，轉而建立自己的商號，提供電腦維修服務。他的服務受到客戶高度讚賞，可是也有一些客戶批評何力經常使用專門術語，令他們難以理解。\n\n22. 何力展示了下列哪些企業家的特點？\n(1) 尋找新機會 (2) 渴望獨立自主 (3) 接受創新意念\nA. 只有(1)及(2)\nB. 只有(1)及(3)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"【Background】Ho Lik has been working in an IT company for years. He resigned and set up his own firm providing computer repair services. His services were highly praised, but some clients criticized him for using technical jargons.\n\n22. Which of the following characteristics of entrepreneurs did Ho Lik demonstrate?\n(1) searching for new opportunities (2) desire for independence (3) accepting innovative ideas\nA. (1) and (2) only\nB. (1) and (3) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"A",rate:"75%",exCn:"* **(1) 符合**：何力建立自己的商號，代表他主動尋找市場新機會。\n* **(2) 符合**：辭去公司工作自行創業，體現了渴望獨立自主。\n* **(3) 未能體現**：電腦維修服務屬於傳統技能，題幹無指出何力引入了創新意念。\n故符合 (1) 和 (2)，選 A。",exEn:"* **(1) is demonstrated**: Setting up his own firm shows he searched for new market opportunities.\n* **(2) is demonstrated**: Resigning to start his own business shows desire for independence.\n* **(3) is NOT demonstrated**: Conventional computer repair services do not demonstrate innovative ideas.\nTherefore, only (1) and (2) are demonstrated, making A the correct answer."},
+
+{q:23,y:2014,top:"基礎管理 —— 有效溝通的原則",topEn:"Basics of Management —— Principles of Effective Communication",outc:true,reason:"自 2025 年起，整個「有效溝通」相關課題已被完全移出必修部分大綱。",reasonEn:"Starting from 2025, topics related to 'Effective Communication' are completely removed from the Compulsory Part.",cn:"23. 根據客戶對何力的批評（經常使用專門術語，令他們難以理解），何力違反了有效溝通的_______原則。\nA. 清晰\nB. 完整\nC. 具體\nD. 簡潔",en:"23. Based on the customers' criticism of Ho Lik (using technical jargons frequently which made it difficult for them to understand), Ho Lik violated the _______ principle of effective communication.\nA. clarity\nB. completeness\nC. specificity\nD. conciseness",ans:"A",rate:"75%",exCn:"1. 有效溝通的「清晰」原則要求發送者必須使用容易被接收者理解的語言。\n2. 何力使用深奧的專門術語，導致客戶難以理解，違反了**「清晰」**原則。\n故選 A。",exEn:"1. The principle of **clarity** requires the sender to use language that can be easily understood by the receiver.\n2. Ho Lik's use of technical jargons made it difficult for clients to comprehend, violating the principle of **clarity**.\nThus, A is correct."},
+
+{q:24,y:2014,top:"主要商業功能 —— 資訊管理功能（優質商業資訊的特徵與應用）",topEn:"Basics of Management —— Major Business Functions (Characteristics and use of quality business information)",cn:"24. 下列哪項是使用優質商業資訊來作決策的例子？\nA. 按某銀行出納員的意見購買股票\nB. 按某財經報章在上星期刊登的建議購買外幣\nC. 在互聯網上閱讀用家評論後購買手提電話\nD. 在航空公司的網頁閱讀相關的條款及細則後訂購機票",en:"24. Which of the following is an example of using high-quality business information to make decisions?\nA. buy shares based on the advice of a bank teller\nB. buy foreign currency based on the recommendation published in a financial newspaper last week\nC. buy a mobile phone after reading user reviews on the Internet\nD. book air tickets after reading the relevant terms and conditions on the airline's website",ans:"D",rate:"72%",exCn:"優質商業資訊須具備適時、準確、相關、完整及可靠來源。\n* **A 錯誤**：銀行櫃員並非專業投資顧問，可靠性不足。\n* **B 錯誤**：上週的報紙建議已喪失適時性。\n* **C 錯誤**：網上匿名評論可靠性不足。\n* **D 正確**：航空公司官方網站的條款是最準確、完整且可靠的資訊。\n故選 D。",exEn:"High-quality business information must be timely, accurate, relevant, complete, and from a reliable source.\n* **A is incorrect**: A bank teller is not a licensed financial advisor.\n* **B is incorrect**: A recommendation published last week lacks timeliness.\n* **C is incorrect**: Anonymous user reviews may be unreliable.\n* **D is correct**: Official airline website terms are accurate, complete, and highly reliable.\nThus, D is correct."},
+
+{q:25,y:2014,top:"主要商業功能 —— 市場營銷部之職掌與市場研究",topEn:"Basics of Management —— Major Business Functions (Functions of marketing department)",cn:"25. 進行問卷調查以了解客戶需要屬於_______的範疇。\nA. 營運管理\nB. 市場營銷管理\nC. 資訊管理\nD. 風險管理",en:"25. Conducting questionnaire surveys to understand customers' needs is a part of _______.\nA. operations management\nB. marketing management\nC. information management\nD. risk management",ans:"B",rate:"73%",exCn:"1. 市場營銷管理的核心職能是識別、預測並採取營銷策略來有效滿足顧客需求。\n2. 「發放並回收問卷調查」是進行**市場研究**的最經典方法，直接屬於市場營銷管理範疇。\n故選 B。",exEn:"1. The core mandate of marketing management is to identify, anticipate, and satisfy customer requirements.\n2. Conducting questionnaire surveys is a standard method in **market research**, directly falling under marketing management.\nThus, B is correct."},
+
+{q:26,y:2014,top:"不同企業擁有權類型的財務報告編製 —— 財務狀況表（流動資產的分類定義）",topEn:"SFP and Income Statement —— Statement of Financial Position (Definition and classification of current assets)",outc:true,reason:"自 2025 年起，財務狀況表中資產與負債科目的性質歸類已全數歸入選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, classification of assets and liabilities on the Statement of Financial Position are moved to Elective Module Paper 2A.",cn:"26. 如果某資產_______，這會在財務狀況表上歸類為流動資產。\nA. 在12個月前已經賒帳購買\nB. 在過去12個月內以現金購買\nC. 將會在12個月內出售\nD. 將會使用超過12個月",en:"26. If an asset _______, it will be classified as a current asset in the statement of financial position.\nA. was purchased on credit 12 months ago\nB. was purchased in cash in the past 12 months\nC. will be sold within 12 months\nD. will be used for more than 12 months",ans:"C",rate:"60%",exCn:"1. **流動資產**是指預期在12個月內被變賣、變現、消耗或耗用的資產，故選 C。\n2. 賒購或現購的時間不決定分類；使用超過12個月應分類為非流動資產。",exEn:"1. **Current assets** are expected to be converted to cash, sold, or consumed within 12 months. Thus, C is correct.\n2. The timing of purchase does not determine classification; assets used for more than 12 months are non-current."},
+
+{q:27,y:2014,top:"基礎個人理財 —— 策劃個人理財及投資（金融產品的風險與回報關係）",topEn:"Basics of Personal Financial Management —— Personal Financial Planning & Investment (Risk-return profiles of financial products)",cn:"27. 下列哪項金融產品的投資風險是最高？\nA. 儲蓄存款\nB. 定期存款\nC. 優先股\nD. 普通股",en:"27. Which of the following financial products carries the highest investment risk?\nA. savings deposits\nB. term deposits\nC. preferred shares\nD. ordinary shares",ans:"D",rate:"78%",exCn:"根據風險與回報成正比的特質：\n* **A 及 B**：儲蓄存款及定期存款由銀行提供本金保證，風險最低。\n* **C. 優先股**：享有優先獲發固定股息的權利，風險中等。\n* **D. 普通股**：股息不固定，股價波動大，清盤時索償順序排最後，風險最高。\n故選 D。",exEn:"Based on risk-return profiles:\n* **A and B**: Savings/term deposits have the lowest risk with guaranteed principal.\n* **C (Preferred shares)**: Carry moderate risk with priority in dividends.\n* **D (Ordinary shares)**: Carry the highest risk with non-guaranteed dividends and high price volatility.\nThus, D is correct."},
+
+{q:28,y:2014,top:"基礎個人理財 —— 消費者信貸（個人信貸記錄的重要性）",topEn:"Basics of Personal Financial Management —— Consumer Credit (Importance of maintaining a good personal credit record)",cn:"28. 維持良好個人信貸記錄是重要的，因為這會______\n(1) 減低貸款成本\n(2) 增加獲批貸款的機會\n(3) 提高銀行七成按揭貸款的上限\nA. 只有(1)及(2)\nB. 只有(1)及(3)\nC. 只有(2)及(3)\nD. (1)、(2)及(3)",en:"28. Maintaining a good personal credit record is important because it will ______\n(1) lower the cost of loans\n(2) increase the chance of getting loans\n(3) increase the upper limit of 70% on mortgage loans from banks\nA. (1) and (2) only\nB. (1) and (3) only\nC. (2) and (3) only\nD. (1), (2) and (3)",ans:"A",rate:"52%",exCn:"1. **(1)及(2) 正確**：良好信貸評級能降低壞帳風險，銀行願意提供更低利息（(1)）並增加批核機會（(2)）。\n2. **(3) 錯誤**：香港住宅物業的「七成按揭成數上限」是金管局制定的法定宏觀審慎監管指引，不會因個人信貸評級優異而提高。\n故只有 (1) 及 (2) 正確，選 A。",exEn:"1. **(1) and (2) are correct**: A good credit record indicates low default risk, leading to lower interest rates and higher approval chances.\n2. **(3) is incorrect**: The 70% maximum LTV ratio is a statutory macroeconomic prudential measure imposed by the HKMA and cannot be increased.\nTherefore, only (1) and (2) are correct, making A the correct answer."},
+
+{q:29,y:2014,top:"複式記帳法 —— 東主代付電費交易之會計分錄",topEn:"Double-entry Bookkeeping —— Bookkeeping Entries for Personal Expenses paid on behalf of Business",outc:true,reason:"自 2025 年起，複式記帳原則、會計等式及各類商業交易的借貸分錄已全數被移往選修部分會計單元（Paper 2A）。",reasonEn:"Starting from 2025, double-entry bookkeeping rules and debit/credit ledger entries are moved to Elective Module Paper 2A.",cn:"29. 李小姐以個人支票支付企業的電費。以下哪項是企業正確的複式記帳？\n借記 / 貸記\nA. 提用 / 銀行存款\nB. 提用 / 資本\nC. 電費 / 銀行存款\nD. 電費 / 資本",en:"29. Miss Lee drew a personal cheque to pay an electricity bill for her business. Which of the following double entries for the business is correct?\nDebit / Credit\nA. drawings / cash at bank\nB. drawings / capital\nC. electricity expenses / cash at bank\nD. electricity expenses / capital",ans:"D",rate:"68%",exCn:"1. **借記**：款項用於支付企業「電費」，費用增加記入借方 → **借記：電費**。\n2. **貸記**：電費由東主以「個人支票」代付，等同東主注入資本，資本增加記入貸方 → **貸記：資本**。\n正確分錄為：借記電費；貸記資本，選 D。",exEn:"1. **Debit**: Payment was for electricity, an increase in expenses → **Debit: Electricity expenses**.\n2. **Credit**: Payment made by owner's personal cheque is equivalent to introducing capital → **Credit: Capital**.\nThe correct double entry is: Debit: Electricity expenses; Credit: Capital. Thus, D is correct."},
+
+{q:30,y:2014,top:"營商環境 —— 國際貿易合作組織（亞太區經濟合作組織 APEC 的特徵）",topEn:"Business Environment —— Major International Trade Organisations (Characteristics of APEC)",cn:"30. 下列哪項有關亞太區經濟合作組織的陳述是正確的？\nA. 它為亞太地區的發展中國家提供貸款。\nB. 它支持亞太地區的可持續經濟增長。\nC. 它調解亞太地區國家之間的貿易紛爭。\nD. 它為亞太地區生產的貨品簽發產地來源證。",en:"30. Which of the following statements about Asia-Pacific Economic Cooperation is correct?\nA. It provides loans to developing countries in the Asia-Pacific region.\nB. It supports sustainable economic growth in the Asia-Pacific region.\nC. It settles trade disputes among Asia-Pacific countries.\nD. It issues certificates of origin for goods produced in the Asia-Pacific region.",ans:"B",rate:"54%",exCn:"APEC 是一個推動亞太地區貿易和投資自由化、支持區域內可持續經濟增長的非約束性官方經濟論壇，故 B 正確。\n* **A 錯誤**：提供貸款是世界銀行或亞洲開發銀行的職掌。\n* **C 錯誤**：調解貿易紛爭是 WTO 的功能。\n* **D 錯誤**：簽發產地來源證由各國當地的貿易署或海關負責。",exEn:"APEC is a regional economic forum established to promote trade and investment liberalization and support sustainable economic growth. Thus, B is correct.\n* **A is incorrect**: Providing loans is the responsibility of the World Bank or ADB.\n* **C is incorrect**: Settling trade disputes is a function of the WTO.\n* **D is incorrect**: Certificates of origin are issued by local trade authorities, not APEC."}
+];
+
+function init(){
+  const toc=document.getElementById("toc");
+  const qBox=document.getElementById("questions");
+  D.forEach((d,i)=>{
+    const tocA=document.createElement("a");
+    tocA.href="#q"+d.q;
+    tocA.textContent="Q"+d.q+(d.outc?" [out c]":"");
+    if(d.outc)tocA.style.background="#fff3e0",tocA.style.color="#e65100";
+    toc.appendChild(tocA);
+
+    const card=document.createElement("div");
+    card.className="card";
+    card.id="q"+d.q;
+    const opts=getOpts(d.cn);
+    card.innerHTML=`
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+        <span class="qnum">Q${d.q}</span>
+        ${d.outc?'<span class="outc-tag">[out c]</span>':''}
+      </div>
+      <div class="qtopic"><b>中文：</b>${d.top}<br><b>English：</b>${d.topEn}</div>
+      ${d.outc?`<div style="background:#fff3e0;border-radius:8px;padding:10px;margin-bottom:10px;font-size:12px;line-height:1.6"><b>⚠️ 新考綱不適用原因：</b><br>${d.reason}<br>${d.reasonEn}</div>`:''}
+      <div class="lang-toggle" data-idx="${i}">
+        <button class="lang-btn on" onclick="setLang(${i},0)">中</button>
+        <button class="lang-btn" onclick="setLang(${i},1)">EN</button>
+        <button class="lang-btn" onclick="setLang(${i},2)">雙語</button>
+      </div>
+      <div class="qtext" id="qt${i}">${d.cn.replace(/\n/g,"<br>")}</div>
+      <div class="qopts" id="qo${i}">
+        ${opts.map((o,j)=>`<div class="opt" data-idx="${i}" data-opt="${o.charAt(0)}" onclick="checkAns(${i},'${o.charAt(0)}')">${o}</div>`).join('')}
+      </div>
+      <div class="info-row hidden" id="info${i}">
+        <span class="rtag" id="rtag${i}"></span>
+        <span class="pct">全港正確率：${d.rate}</span>
+      </div>
+      <div class="exbox hidden" id="ex${i}" onclick="this.classList.toggle('open')">
+        <div class="exh"><span class="arrow">▶</span> 📖 詳細題解 / Detailed Explanation</div>
+        <div class="exbody">
+          <div class="excn"><b>中文題解：</b><br>${d.exCn.replace(/\n/g,"<br>")}</div>
+          <div class="exen"><b>English Explanation:</b><br>${d.exEn.replace(/\n/g,"<br>")}</div>
+        </div>
+      </div>
+    `;
+    qBox.appendChild(card);
+  });
+}
+
+function checkAns(idx,selected){
+  const d=D[idx];
+  const opts=document.querySelectorAll('#qo'+idx+' .opt');
+  const isCorrect=selected===d.ans;
+  opts.forEach(o=>{
+    o.classList.add('locked');
+    const letter=o.getAttribute('data-opt');
+    if(letter===d.ans)o.classList.add('correct');
+    else if(letter===selected&&!isCorrect)o.classList.add('wrong');
+  });
+  const info=document.getElementById('info'+idx);
+  info.classList.remove('hidden');
+  const rtag=document.getElementById('rtag'+idx);
+  if(isCorrect){
+    rtag.className='rtag ok';
+    rtag.textContent='✔ 答對了！Correct!';
+  }else{
+    rtag.className='rtag no';
+    rtag.textContent='✘ 正確答案：'+d.ans;
+  }
+  const exbox=document.getElementById('ex'+idx);
+  exbox.classList.remove('hidden');
+}
+
+</script>
+</body>
+</html>
