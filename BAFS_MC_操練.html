@@ -116,6 +116,12 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <div class="yearsel" id="yearBox2" style="margin-top:0.5cm"></div>
 <h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">📝 課題篩選 <button class="tnm-edit" onclick="showTopicNameEditor()" title="修改課題名稱">✏️</button></h2>
 <div class="topicsel" id="tagBox"></div>
+<h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">🔍 關鍵字搜尋</h2>
+<div style="display:flex;gap:8px;align-items:center">
+<input type="text" id="searchInput" placeholder="輸入關鍵字搜尋題目（如：成本、會計、合夥）" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8">
+<button class="btn bo" onclick="clearSearch()" style="padding:6px 12px;font-size:12px">清除</button>
+</div>
+<div id="searchHint" style="font-size:12px;color:#9e8c7a;margin-top:6px"></div>
 <h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">📋 題目數量</h2>
 <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
 <select id="qNumSel" style="padding:6px 12px;border-radius:6px;border:1px solid #ddd;font-size:13px">
@@ -397,12 +403,29 @@ function init(){
 
 function getFiltered(){
   const onTags=[...document.querySelectorAll(".tag.on")].map(s=>+s.dataset.i);
+  const keyword=(document.getElementById("searchInput").value||"").trim().toLowerCase();
   return Q.filter(q=>{
     if(selYear!=="all"&&String(q.year)!==selYear)return false;
     const ti=topics.indexOf(getMajorCat(q.top,q.outc));
-    return onTags.includes(ti);
+    if(!onTags.includes(ti))return false;
+    if(keyword){
+      const haystack=((q.cn||"")+" "+(q.en||"")+" "+(q.top||"")+" "+(q.topEn||"")).toLowerCase();
+      if(!haystack.includes(keyword))return false;
+    }
+    return true;
   });
 }
+
+function clearSearch(){
+  document.getElementById("searchInput").value="";
+  updCount();
+}
+document.getElementById("searchInput").addEventListener("input",function(){
+  const v=this.value.trim();
+  const total=getFiltered().length;
+  document.getElementById("searchHint").textContent=v?"找到 "+total+" 題":"";
+  updCount();
+});
 
 function updCount(){
   const total=getFiltered().length;
