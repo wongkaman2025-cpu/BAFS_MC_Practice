@@ -129,6 +129,7 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 </div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center">
 <button class="btn bp" onclick="go()">開始操練</button>
+<button class="btn bo" onclick="goRandom()">🎲 隨機模式</button>
 <span id="qcount" style="font-size:13px;color:#888"></span>
 </div>
 </div>
@@ -422,6 +423,21 @@ function go(){
     filtered=filtered.sort(()=>Math.random()-0.5).slice(0,maxQ);
   }
   pool=filtered;
+  cur=0;score=0;answered=pool.map(()=>null);
+  isWrongBookPractice=false;
+  document.getElementById("setup").classList.add("hid");
+  document.getElementById("stats").classList.remove("hid");
+  document.getElementById("qcard").classList.remove("hid");
+  document.getElementById("res").style.display="none";
+  startTimer();
+  render();
+}
+function goRandom(){
+  const maxQ=parseInt(document.getElementById("qNumSel").value)||0;
+  let pool_all=Q.filter(q=>!q.outc);
+  if(maxQ>0){pool_all=pool_all.sort(()=>Math.random()-0.5).slice(0,maxQ)}
+  else{pool_all=pool_all.sort(()=>Math.random()-0.5)}
+  pool=pool_all;
   cur=0;score=0;answered=pool.map(()=>null);
   isWrongBookPractice=false;
   document.getElementById("setup").classList.add("hid");
