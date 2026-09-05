@@ -116,6 +116,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 <div class="yearsel" id="yearBox2" style="margin-top:0.5cm"></div>
 <h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">📝 課題篩選 <button class="tnm-edit" onclick="showTopicNameEditor()" title="修改課題名稱">✏️</button></h2>
 <div class="topicsel" id="tagBox"></div>
+<h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">📋 題目數量</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<select id="qNumSel" style="padding:6px 12px;border-radius:6px;border:1px solid #ddd;font-size:13px">
+<option value="10">10 題</option>
+<option value="20">20 題</option>
+<option value="30" selected>30 題</option>
+<option value="50">50 題</option>
+<option value="100">100 題</option>
+<option value="0">全部</option>
+</select>
+</div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center">
 <button class="btn bp" onclick="go()">開始操練</button>
 <span id="qcount" style="font-size:13px;color:#888"></span>
@@ -379,6 +390,7 @@ function init(){
     if(y<=2019){yb1.appendChild(s)}else{yb2.appendChild(s)}
   });
   renderTopicTags();
+  document.getElementById("qNumSel").onchange=updCount;
   updCount();
 }
 
@@ -392,7 +404,10 @@ function getFiltered(){
 }
 
 function updCount(){
-  document.getElementById("qcount").textContent="共 "+getFiltered().length+" 題";
+  const total=getFiltered().length;
+  const maxQ=parseInt(document.getElementById("qNumSel").value)||0;
+  const show=maxQ>0?Math.min(maxQ,total):total;
+  document.getElementById("qcount").textContent="共 "+total+" 題，本次練習 "+show+" 題";
 }
 
 function fmtTime(s){const m=Math.floor(s/60);return String(m).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
@@ -400,8 +415,13 @@ function startTimer(){stopTimer();timerSec=0;timerRunning=true;document.getEleme
 function stopTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null}timerRunning=false}
 
 function go(){
-  pool=getFiltered();
-  if(!pool.length){alert("請選擇至少一個課題");return}
+  let filtered=getFiltered();
+  if(!filtered.length){alert("請選擇至少一個課題");return}
+  const maxQ=parseInt(document.getElementById("qNumSel").value)||0;
+  if(maxQ>0&&filtered.length>maxQ){
+    filtered=filtered.sort(()=>Math.random()-0.5).slice(0,maxQ);
+  }
+  pool=filtered;
   cur=0;score=0;answered=pool.map(()=>null);
   isWrongBookPractice=false;
   document.getElementById("setup").classList.add("hid");
