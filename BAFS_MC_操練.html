@@ -107,6 +107,7 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
 <button class="btn bo" onclick="toggleNotes()" style="font-size:12px;padding:5px 14px">📒 筆記本</button>
 <button class="btn bo wb-btn" onclick="showWrongBook()" style="font-size:12px;padding:5px 14px">📕 錯題簿<span class="wb-badge hid" id="wbBadge"></span></button>
+<button class="btn bo" onclick="showProgress()" style="font-size:12px;padding:5px 14px">📊 練習紀錄</button>
 </div>
 </div>
 <div class="wrap">
@@ -225,6 +226,20 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 </div>
 <textarea id="notesArea" placeholder="在此記錄重點、公式、溫習筆記..."></textarea>
 <div class="ntp-info">自動儲存</div>
+</div>
+<div class="wb" id="progressPanel">
+<div class="wb-hdr">
+<h2>📊 練習紀錄</h2>
+<div style="display:flex;gap:6px;align-items:center">
+<button class="btn bo" style="font-size:11px;padding:3px 8px" onclick="exportProgress()">匯出</button>
+<button class="btn bo" style="font-size:11px;padding:3px 8px" onclick="document.getElementById('progImport').click()">匯入</button>
+<input type="file" id="progImport" accept="json" style="display:none" onchange="importProgress(event)">
+<button class="btn bo" style="font-size:11px;padding:3px 8px;color:#b85c5c" onclick="clearProgress()">清除紀錄</button>
+<button class="wb-close" onclick="closeProgress()">✕</button>
+</div>
+</div>
+<div id="progressStats"></div>
+<div id="progressList"></div>
 </div>
 <div class="qe-modal" id="qeModal">
 <div class="qe-box">
@@ -594,6 +609,7 @@ function prev(){if(cur>0){cur--;render()}}
 
 function showRes(){
   stopTimer();
+  recordProgress();
   document.getElementById("qcard").classList.add("hid");
   document.getElementById("res").style.display="block";
   const pct=Math.round(score/pool.length*100);
@@ -704,6 +720,93 @@ function practiceWrongBook(){
   document.getElementById("res").style.display="none";
   startTimer();
   render();
+}
+
+let progress=JSON.parse(localStorage.getItem("bafsProgress")||"[]");
+function saveProgress(){localStorage.setItem("bafsProgress",JSON.stringify(progress))}
+function recordProgress(){
+  const pct=Math.round(score/pool.length*100);
+  progress.push({
+    date:new Date().toISOString(),
+    total:pool.length,
+    correct:score,
+    wrong:pool.length-score,
+    pct:pct,
+    time:timerSec,
+    mode:isWrongBookPractice?"錯題簿":"普通練習"
+  });
+  saveProgress();
+}
+function showProgress(){
+  document.getElementById("overlay").classList.add("show");
+  document.getElementById("progressPanel").classList.add("open");
+  renderProgress();
+}
+function closeProgress(){
+  document.getElementById("overlay").classList.remove("show");
+  document.getElementById("progressPanel").classList.remove("open");
+}
+function clearProgress(){
+  if(!confirm("確定要清除所有練習紀錄嗎？"))return;
+  progress=[];saveProgress();renderProgress();
+}
+function exportProgress(){
+  const blob=new Blob([JSON.stringify(progress,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download="BAFS_練習紀錄_"+new Date().toISOString().slice(0,10)+".json";
+  a.click();URL.revokeObjectURL(a.href);
+}
+function importProgress(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(!Array.isArray(data)){alert("格式錯誤");return}
+      progress=data;saveProgress();renderProgress();
+      alert("已匯入 "+data.length+" 條紀錄");
+    }catch(err){alert("解析失敗："+err.message)}
+  };
+  reader.readAsText(file);e.target.value="";
+}
+function renderProgress(){
+  const statsEl=document.getElementById("progressStats");
+  const listEl=document.getElementById("progressList");
+  if(!progress.length){
+    statsEl.innerHTML="";
+    listEl.innerHTML='<div class="wb-empty">📊 尚無練習紀錄<br><small>完成一次練習後會自動記錄</small></div>';
+    return;
+  }
+  const totalQ=progress.reduce((s,p)=>s+p.total,0);
+  const totalCorrect=progress.reduce((s,p)=>s+p.correct,0);
+  const avgPct=Math.round(totalCorrect/totalQ*100);
+  const totalTime=progress.reduce((s,p)=>s+p.time,0);
+  const bestPct=Math.max(...progress.map(p=>p.pct));
+  statsEl.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">'+
+    '<div style="background:#faf3ea;padding:12px;border-radius:10px;text-align:center"><div style="font-size:22px;font-weight:600;color:#a67c52">'+progress.length+'</div><div style="font-size:11px;color:#8b7a6b">練習次數</div></div>'+
+    '<div style="background:#faf3ea;padding:12px;border-radius:10px;text-align:center"><div style="font-size:22px;font-weight:600;color:#a67c52">'+totalQ+'</div><div style="font-size:11px;color:#8b7a6b">總答題數</div></div>'+
+    '<div style="background:#f0f5ec;padding:12px;border-radius:10px;text-align:center"><div style="font-size:22px;font-weight:600;color:#6b8e5a">'+avgPct+'%</div><div style="font-size:11px;color:#8b7a6b">平均正確率</div></div>'+
+    '<div style="background:#f0f5ec;padding:12px;border-radius:10px;text-align:center"><div style="font-size:22px;font-weight:600;color:#6b8e5a">'+bestPct+'%</div><div style="font-size:11px;color:#8b7a6b">最高正確率</div></div>'+
+    '<div style="background:#fdf0f0;padding:12px;border-radius:10px;text-align:center;grid-column:span 2"><div style="font-size:22px;font-weight:600;color:#b85c5c">'+Math.floor(totalTime/60)+'分'+totalTime%60+'秒</div><div style="font-size:11px;color:#8b7a6b">總練習時間</div></div>'+
+    '</div>';
+  listEl.innerHTML="";
+  const sorted=[...progress].reverse();
+  sorted.forEach(p=>{
+    const d=new Date(p.date);
+    const dateStr=d.getMonth()+1+"/"+d.getDate()+" "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+    const timeStr=Math.floor(p.time/60)+"分"+p.time%60+"秒";
+    const div=document.createElement("div");
+    div.className="wb-item";
+    div.style.cursor="default";
+    div.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center">'+
+      '<div class="wi-q">'+dateStr+'</div>'+
+      '<div style="font-size:12px;color:#8b7a6b">'+p.mode+'</div></div>'+
+      '<div style="display:flex;gap:12px;margin-top:6px;font-size:12px;color:#6b5344">'+
+      '<span>答對 <b style="color:#6b8e5a">'+p.correct+'</b>/'+p.total+'</span>'+
+      '<span>正確率 <b style="color:'+(p.pct>=60?'#6b8e5a':'#b85c5c')+'">'+p.pct+'%</b></span>'+
+      '<span>用時 '+timeStr+'</span></div>';
+    listEl.appendChild(div);
+  });
 }
 
 try{
