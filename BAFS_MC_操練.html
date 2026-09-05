@@ -6,8 +6,8 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 .hdr p{font-size:13px;opacity:.9}
 .wrap{max-width:800px;margin:0 auto;padding:16px}
 .card{background:#fffdf8;border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(139,109,78,.08);border:1px solid #ebe3d8}
-.yearlysel,.topicsel{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
-.ytag,.tag{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid #d4c5b0;background:#fffdf8;transition:.2s;user-select:none;color:#6b5344}
+.yearsel,.topicsel{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.ytag,.tag{padding:5px 12px;border-radius:16px;font-size:12px;cursor:pointer;border:1px solid #d4c5b0;background:#fffdf8;transition:.2s;user-select:none;color:#6b5344}
 .ytag.on,.tag.on{background:#a67c52;color:#fff;border-color:#a67c52}
 .ytag:hover,.tag:hover{background:#f5ebe0;border-color:#c9a87c}
 .ytag.on:hover,.tag.on:hover{background:#8b6342}
@@ -114,20 +114,26 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 </div>
 <div class="wrap">
 <div class="card" id="setup">
-<h2 style="font-size:16px;margin-bottom:10px">📝 年份篩選</h2>
-<div class="yearsel" id="yearBox1"></div>
-<div class="yearsel" id="yearBox2" style="margin-top:0.5cm"></div>
-<h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">📝 課題篩選 <button class="tnm-edit" onclick="showTopicNameEditor()" title="修改課題名稱">✏️</button></h2>
-<div class="topicsel" id="tagBox"></div>
-<h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">🔍 關鍵字搜尋</h2>
-<div style="display:flex;gap:8px;align-items:center">
-<input type="text" id="searchInput" placeholder="輸入關鍵字搜尋題目（如：成本、會計、合夥）" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8">
-<button class="btn bo" onclick="clearSearch()" style="padding:6px 12px;font-size:12px">清除</button>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h2 style="font-size:16px">📝 年份</h2>
+<button class="tnm-edit" onclick="showTopicNameEditor()" title="修改課題名稱" style="font-size:13px">✏️ 修改分類名稱</button>
 </div>
-<div id="searchHint" style="font-size:12px;color:#9e8c7a;margin-top:6px"></div>
-<h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">📋 題目數量</h2>
-<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-<select id="qNumSel" style="padding:6px 12px;border-radius:6px;border:1px solid #ddd;font-size:13px">
+<div class="yearsel" id="yearBox1"></div>
+<div class="yearsel" id="yearBox2" style="margin-top:8px"></div>
+<h2 style="font-size:16px;margin:16px 0 10px">📂 主題</h2>
+<div class="topicsel" id="tagBox"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+<div>
+<div style="font-size:13px;font-weight:500;color:#6b5344;margin-bottom:6px">🔍 搜尋題目</div>
+<div style="display:flex;gap:6px;align-items:center">
+<input type="text" id="searchInput" placeholder="輸入關鍵字" style="flex:1;padding:7px 10px;border-radius:8px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8">
+<button class="btn bo" onclick="clearSearch()" style="padding:5px 10px;font-size:11px">清除</button>
+</div>
+<div id="searchHint" style="font-size:11px;color:#9e8c7a;margin-top:4px"></div>
+</div>
+<div>
+<div style="font-size:13px;font-weight:500;color:#6b5344;margin-bottom:6px">📋 題目數量</div>
+<select id="qNumSel" style="width:100%;padding:7px 10px;border-radius:8px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8">
 <option value="10">10 題</option>
 <option value="20">20 題</option>
 <option value="30" selected>30 題</option>
@@ -136,13 +142,14 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <option value="0">全部</option>
 </select>
 </div>
-<h2 style="font-size:16px;margin-bottom:10px;margin-top:6px">⏱️ 倒計時模式</h2>
-<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-<label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
-<input type="checkbox" id="countdownToggle" style="width:16px;height:16px;accent-color:#a67c52">
-<span>啟用倒計時</span>
+<div>
+<div style="font-size:13px;font-weight:500;color:#6b5344;margin-bottom:6px">⏱️ 倒計時</div>
+<div style="display:flex;gap:6px;align-items:center">
+<label style="font-size:12px;display:flex;align-items:center;gap:4px;cursor:pointer">
+<input type="checkbox" id="countdownToggle" style="width:14px;height:14px;accent-color:#a67c52">
+<span>啟用</span>
 </label>
-<select id="countdownTime" style="padding:6px 12px;border-radius:6px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8" disabled>
+<select id="countdownTime" style="flex:1;padding:7px 10px;border-radius:8px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8" disabled>
 <option value="300">5 分鐘</option>
 <option value="600">10 分鐘</option>
 <option value="900">15 分鐘</option>
@@ -150,12 +157,17 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <option value="1800">30 分鐘</option>
 <option value="2700">45 分鐘</option>
 </select>
-<span id="countdownHint" style="font-size:12px;color:#9e8c7a">時間到會自動交卷</span>
 </div>
-<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center">
-<button class="btn bp" onclick="go()">開始操練</button>
-<button class="btn bo" onclick="goRandom()">🎲 隨機模式</button>
-<span id="qcount" style="font-size:13px;color:#888"></span>
+<div id="countdownHint" style="font-size:11px;color:#9e8c7a;margin-top:4px">時間到會自動交卷</div>
+</div>
+<div>
+<div style="font-size:13px;font-weight:500;color:#6b5344;margin-bottom:6px">📊 統計</div>
+<div id="qcount" style="font-size:13px;color:#8b7a6b;padding:7px 0"></div>
+</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:16px">
+<button class="btn bp" onclick="go()" style="flex:1;padding:10px;font-size:15px">開始操練</button>
+<button class="btn bo" onclick="goRandom()" style="flex:1;padding:10px;font-size:15px">🎲 隨機模式</button>
 </div>
 </div>
 <div class="bar hid" id="stats">
