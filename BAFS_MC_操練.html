@@ -100,10 +100,28 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 .ntp-hdr h2{font-size:18px;color:#a67c52}
 .ntp textarea{flex:1;width:100%;min-height:300px;padding:12px;border:1px solid #d4c5b0;border-radius:10px;font-size:13px;line-height:1.7;resize:vertical;font-family:inherit;background:#fffdf8}
 .ntp .ntp-info{font-size:11px;color:#b8a898;margin-top:8px;text-align:right}
+.login-screen{display:none}
+.login-screen.show{display:block}
+.user-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:16px;background:rgba(255,255,255,.2);font-size:12px;color:#fff;cursor:pointer}
+.user-badge:hover{background:rgba(255,255,255,.3)}
 </style></head><body>
 </head>
 <body>
-<div class="hdr">
+<div class="login-screen" id="loginScreen">
+<div class="card" style="max-width:400px;margin:80px auto;text-align:center">
+<h2 style="font-size:20px;margin-bottom:6px;color:#6b5344">📚 DSE 企會財 MC 操練</h2>
+<p style="font-size:13px;color:#9e8c7a;margin-bottom:20px">請先登入以記錄你的練習成績</p>
+<div style="margin-bottom:12px">
+<input type="text" id="studentName" placeholder="姓名（如：陳小明）" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #d4c5b0;font-size:14px;background:#fffdf8">
+</div>
+<div style="margin-bottom:12px">
+<input type="text" id="studentClass" placeholder="班別（如：5A）" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #d4c5b0;font-size:14px;background:#fffdf8">
+</div>
+<button class="btn bp" onclick="doStudentLogin()" style="width:100%;padding:12px;font-size:15px">登入開始練習</button>
+<div style="font-size:11px;color:#b8a898;margin-top:10px">你的姓名會用於記錄練習成績</div>
+</div>
+</div>
+<div class="hdr hid" id="mainHeader">
 <h1>DSE 企會財 MC 操練 (2012-2025)</h1>
 <p>BAFS Paper 1 Section A — Bilingual MC Practice</p>
 <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
@@ -880,10 +898,53 @@ init();
 loadNotes();
 document.getElementById("notesArea").addEventListener("input",saveNotes);
 updateWbBadge();
+checkLogin();
 }catch(e){
 console.error("Init error:",e);
 var eb=document.getElementById("yearBox1");
 if(eb)eb.innerHTML="<pre style='color:red'>JS Error: "+e.message+"</pre>";
+}
+
+// === Login System ===
+let currentUser=null;
+function checkLogin(){
+  const saved=localStorage.getItem("bafsUser");
+  if(saved){
+    currentUser=JSON.parse(saved);
+    showMainApp();
+  }else{
+    document.getElementById("loginScreen").classList.add("show");
+  }
+}
+function doStudentLogin(){
+  const name=document.getElementById("studentName").value.trim();
+  const cls=document.getElementById("studentClass").value.trim();
+  if(!name){alert("請輸入姓名");return}
+  currentUser={name:name,cls:cls,loginTime:new Date().toISOString()};
+  localStorage.setItem("bafsUser",JSON.stringify(currentUser));
+  showMainApp();
+}
+function showMainApp(){
+  document.getElementById("loginScreen").classList.remove("show");
+  document.getElementById("mainHeader").classList.remove("hid");
+  const hdr=document.getElementById("mainHeader");
+  hdr.innerHTML='<h1>DSE 企會財 MC 操練 (2012-2025)</h1>'+
+    '<p>BAFS Paper 1 Section A — Bilingual MC Practice</p>'+
+    '<div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center">'+
+    '<span class="user-badge" onclick="doLogout()" title="按此登出">👤 '+currentUser.name+(currentUser.cls?' ('+currentUser.cls+')':'')+'</span>'+
+    '<button class="btn bo" onclick="toggleNotes()" style="font-size:12px;padding:5px 14px">📒 筆記本</button>'+
+    '<button class="btn bo wb-btn" onclick="showWrongBook()" style="font-size:12px;padding:5px 14px">📕 錯題簿<span class="wb-badge hid" id="wbBadge"></span></button>'+
+    '<button class="btn bo" onclick="showProgress()" style="font-size:12px;padding:5px 14px">📊 練習紀錄</button>'+
+    '<a href="admin.html" class="btn bo" style="font-size:12px;padding:5px 14px;text-decoration:none">🔧 後台管理</a>'+
+    '</div>';
+  initFirebase();
+  updateWbBadge();
+}
+function doLogout(){
+  if(!confirm("確定要登出嗎？"))return;
+  localStorage.removeItem("bafsUser");
+  currentUser=null;
+  location.reload();
 }
 
 // === Firebase Tracking ===
@@ -892,8 +953,10 @@ let fbDb=null;
 function initFirebase(){
   try{
     if(typeof firebase!=='undefined'&&firebase.database){
-      firebase.initializeApp(firebaseConfig);
-      fbDb=firebase.database();
+      if(!fbDb){
+        firebase.initializeApp(firebaseConfig);
+        fbDb=firebase.database();
+      }
       trackVisit();
     }
   }catch(e){console.log("Firebase init skipped:",e.message)}
@@ -908,10 +971,18 @@ function trackAnswer(qYear,qNum,isCorrect){
   if(!fbDb)return;
   const key=qYear+"-"+qNum;
   const now=new Date().toISOString();
+  const userName=currentUser?currentUser.name:"匿名";
+  const userCls=currentUser?currentUser.cls:"";
   fbDb.ref("stats/answers/"+key+"/times").transaction(v=>(v||0)+1);
   if(isCorrect){fbDb.ref("stats/answers/"+key+"/correct").transaction(v=>(v||0)+1)}
   else{fbDb.ref("stats/answers/"+key+"/wrong").transaction(v=>(v||0)+1)}
   fbDb.ref("stats/answers/"+key+"/lastAnswer").set(now);
+  fbDb.ref("stats/answers/"+key+"/users/"+userName).set({name:userName,cls:userCls,lastAnswer:now,correct:isCorrect?true:false});
+  fbDb.ref("stats/users/"+userName+"/totalAnswered").transaction(v=>(v||0)+1);
+  if(isCorrect){fbDb.ref("stats/users/"+userName+"/correct").transaction(v=>(v||0)+1)}
+  else{fbDb.ref("stats/users/"+userName+"/wrong").transaction(v=>(v||0)+1)}
+  fbDb.ref("stats/users/"+userName+"/cls").set(userCls);
+  fbDb.ref("stats/users/"+userName+"/lastActive").set(now);
 }
 
 </script>

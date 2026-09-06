@@ -61,6 +61,13 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <div id="dashboard" class="hidden">
 <div class="stats-grid" id="statsGrid"></div>
 <div class="card">
+<h2>👥 學生答題記錄</h2>
+<div style="margin-bottom:10px">
+<input type="text" id="userSearch" placeholder="搜尋學生姓名或班別..." style="padding:7px 12px;border-radius:8px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8;width:100%">
+</div>
+<div id="userList"></div>
+</div>
+<div class="card">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
 <h2 style="margin-bottom:0;border:none;padding:0">📈 每日練習趨勢</h2>
 </div>
@@ -118,6 +125,7 @@ function loadDashboard(){
     const visits=data.visits||{};
     const totalVisits=data.totalVisits||0;
     const answers=data.answers||{};
+    const users=data.users||{};
     let totalAnswered=0,totalCorrect=0,totalWrong=0;
     allAnswers=[];
     Object.keys(answers).forEach(key=>{
@@ -136,16 +144,18 @@ function loadDashboard(){
     const uniqueDays=Object.keys(visits).length;
     const today=new Date().toISOString().slice(0,10);
     const todayVisits=visits[today]||0;
+    const totalUsers=Object.keys(users).length;
     document.getElementById("statsGrid").innerHTML=
       '<div class="stat-card"><div class="num">'+totalVisits+'</div><div class="label">總瀏覽次數</div></div>'+
       '<div class="stat-card"><div class="num">'+todayVisits+'</div><div class="label">今日瀏覽</div></div>'+
       '<div class="stat-card"><div class="num">'+totalAnswered+'</div><div class="label">總答題次數</div></div>'+
       '<div class="stat-card"><div class="num">'+(totalAnswered>0?Math.round(totalCorrect/totalAnswered*100):0)+'%</div><div class="label">平均正確率</div></div>'+
-      '<div class="stat-card"><div class="num">'+allAnswers.length+'</div><div class="label">已答題目數</div></div>'+
-      '<div class="stat-card"><div class="num">'+uniqueDays+'</div><div class="label">使用天數</div></div>';
+      '<div class="stat-card"><div class="num">'+totalUsers+'</div><div class="label">註冊學生</div></div>'+
+      '<div class="stat-card"><div class="num">'+allAnswers.length+'</div><div class="label">已答題目數</div></div>';
     renderChart(visits);
     renderRank();
     renderFullList();
+    renderUserList(users);
   });
 }
 
@@ -217,6 +227,49 @@ function sortRank(type){
   document.getElementById("sortRate").classList.toggle("active",type==="rate");
   renderRank();
 }
+
+let allUsers={};
+function renderUserList(users,filter){
+  allUsers=users;
+  const list=document.getElementById("userList");
+  const keys=Object.keys(users);
+  let filtered=keys;
+  if(filter){
+    const kw=filter.toLowerCase();
+    filtered=keys.filter(k=>{
+      const u=users[k];
+      return(k.toLowerCase().includes(kw)||(u.cls||"").toLowerCase().includes(kw));
+    });
+  }
+  filtered.sort((a,b)=>{
+    const ua=users[a],ub=users[b];
+    return(new Date(ub.lastActive||0))-(new Date(ua.lastActive||0));
+  });
+  if(!filtered.length){list.innerHTML='<div style="text-align:center;color:#9e8c7a;padding:20px">暫無學生數據</div>';return}
+  list.innerHTML="";
+  filtered.forEach(name=>{
+    const u=users[name];
+    const total=u.totalAnswered||0;
+    const correct=u.correct||0;
+    const wrong=u.wrong||0;
+    const rate=total>0?Math.round(correct/total*100):0;
+    const rateColor=rate>=60?"#6b8e5a":"#b85c5c";
+    const lastActive=u.lastActive?new Date(u.lastActive).toLocaleString("zh-HK",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"}):"—";
+    const div=document.createElement("div");
+    div.style.cssText="padding:12px;border-bottom:1px solid #f0e8dc;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px";
+    div.innerHTML='<div><div style="font-weight:600;color:#6b5344;font-size:14px">👤 '+name+'</div>'+
+      '<div style="font-size:11px;color:#9e8c7a;margin-top:2px">班別: '+(u.cls||"—")+' | 最後活躍: '+lastActive+'</div></div>'+
+      '<div style="display:flex;gap:16px;font-size:13px;align-items:center">'+
+      '<span>答 <b>'+total+'</b> 題</span>'+
+      '<span style="color:#6b8e5a">✔ '+correct+'</span>'+
+      '<span style="color:#b85c5c">✗ '+wrong+'</span>'+
+      '<span style="font-weight:600;color:'+rateColor+'">'+rate+'%</span></div>';
+    list.appendChild(div);
+  });
+}
+document.getElementById("userSearch").addEventListener("input",function(){
+  renderUserList(allUsers,this.value.trim());
+});
 
 document.getElementById("adminSearch").addEventListener("input",function(){
   renderFullList(this.value.trim());
