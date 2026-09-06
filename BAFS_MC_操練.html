@@ -124,14 +124,8 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <div class="hdr hid" id="mainHeader">
 <h1>DSE 企會財 MC 操練 (2012-2025)</h1>
 <p>BAFS Paper 1 Section A — Bilingual MC Practice</p>
-<div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-<button class="btn bo" onclick="toggleNotes()" style="font-size:12px;padding:5px 14px">📒 筆記本</button>
-<button class="btn bo wb-btn" onclick="showWrongBook()" style="font-size:12px;padding:5px 14px">📕 錯題簿<span class="wb-badge hid" id="wbBadge"></span></button>
-<button class="btn bo" onclick="showProgress()" style="font-size:12px;padding:5px 14px">📊 練習紀錄</button>
-<a href="admin.html" class="btn bo" style="font-size:12px;padding:5px 14px;text-decoration:none">🔧 後台管理</a>
 </div>
-</div>
-<div class="wrap">
+<div class="wrap hid" id="mainWrap">
 <div class="card" id="setup">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <h2 style="font-size:16px">📝 年份</h2>
@@ -927,6 +921,7 @@ function doStudentLogin(){
 function showMainApp(){
   document.getElementById("loginScreen").classList.remove("show");
   document.getElementById("mainHeader").classList.remove("hid");
+  document.getElementById("mainWrap").classList.remove("hid");
   const hdr=document.getElementById("mainHeader");
   hdr.innerHTML='<h1>DSE 企會財 MC 操練 (2012-2025)</h1>'+
     '<p>BAFS Paper 1 Section A — Bilingual MC Practice</p>'+
