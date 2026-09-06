@@ -99,6 +99,15 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 </div>
 <ol class="rank-list" id="fullList"></ol>
 </div>
+<div class="card" style="border:2px solid #e8d5c0">
+<h2 style="color:#b85c5c">⚠️ 系統管理</h2>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn bo" onclick="resetAllData()" style="border-color:#b85c5c;color:#b85c5c">🗑️ 重設所有數據</button>
+<button class="btn bo" onclick="resetAnswers()">🔄 只重設答題數據</button>
+<button class="btn bo" onclick="resetUsers()">👤 只重設學生資料</button>
+</div>
+<div id="resetMsg" style="font-size:12px;color:#6b8e5a;margin-top:8px"></div>
+</div>
 <div style="text-align:center">
 <a class="back-link" href="BAFS_MC_操練.html">← 返回練習頁面</a>
 </div>
@@ -310,5 +319,34 @@ document.getElementById("userSearch").addEventListener("input",function(){
 document.getElementById("adminSearch").addEventListener("input",function(){
   renderFullList(this.value.trim());
 });
+
+// Reset functions
+function resetAllData(){
+  if(!confirm("⚠️ 確定要清除所有數據嗎？\n\n這包括：瀏覽次數、答題記錄、學生資料\n此操作不可逆！"))return;
+  if(!confirm("最後確認：真的要刪除所有數據？"))return;
+  db.ref("stats").set({totalVisits:0}).then(()=>{
+    showResetMsg("✅ 所有數據已清除");
+    loadDashboard();
+  }).catch(e=>showResetMsg("❌ 錯誤："+e.message));
+}
+function resetAnswers(){
+  if(!confirm("確定要清除所有答題數據嗎？\n（保留學生資料和瀏覽次數）"))return;
+  db.ref("stats/answers").remove().then(()=>{
+    showResetMsg("✅ 答題數據已清除");
+    loadDashboard();
+  }).catch(e=>showResetMsg("❌ 錯誤："+e.message));
+}
+function resetUsers(){
+  if(!confirm("確定要清除所有學生資料嗎？\n（保留答題數據和瀏覽次數）"))return;
+  db.ref("stats/users").remove().then(()=>{
+    showResetMsg("✅ 學生資料已清除");
+    loadDashboard();
+  }).catch(e=>showResetMsg("❌ 錯誤："+e.message));
+}
+function showResetMsg(msg){
+  const el=document.getElementById("resetMsg");
+  el.textContent=msg;
+  setTimeout(()=>el.textContent="",4000);
+}
 </script>
 </body></html>
