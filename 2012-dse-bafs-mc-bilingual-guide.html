@@ -27,6 +27,9 @@ td{font-weight:600}
 .qtopic{font-size:12px;color:#888;margin:6px 0 10px;line-height:1.5}
 .outc-tag{font-size:11px;background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:8px;font-weight:600;margin-left:6px}
 .qtext{font-size:14px;margin-bottom:14px;white-space:pre-line}
+.qtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px;white-space:normal}
+.qtable th,.qtable td{border:1px solid #e0e0e0;padding:6px 8px;text-align:center}
+.qtable thead th{background:#e3f2fd;color:#1565c0;font-weight:700}
 .qopts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
 .opt{padding:10px 14px;border:2px solid #e0e0e0;border-radius:8px;font-size:13px;white-space:pre-line;cursor:pointer;transition:.15s}
 .opt:hover{border-color:#1565c0;background:#f5f9ff}
@@ -176,6 +179,27 @@ const D=[
 {q:30,y:2012,top:"基礎管理 —— 有效溝通的過程（編碼、解碼與溝通渠道）",topEn:"Basics of Management —— Effective Communication (The Communication Process)",outc:true,reason:"自 2025 年起，「有效溝通」及溝通過程等相關大綱已從卷一必修部分中完全刪除。",reasonEn:"Starting from 2025, 'Effective Communication' and its process have been removed from Paper 1.",cn:"30. 在典型的溝通過程中，傳遞者把意念____成為信息；透過適當的____，接收者然後把信息____。\nA. 解碼..........反饋..........編碼\nB. 編碼..........反饋..........解碼\nC. 解碼..........渠道..........編碼\nD. 編碼..........渠道..........解碼",en:"30. In a typical communication process, an idea is ____ by the sender to become a message. Through a suitable ____, the message is transmitted and then ____ by the receiver.\nA. decoded..........feedback..........encoded\nB. encoded..........feedback..........decoded\nC. decoded..........channel..........encoded\nD. encoded..........channel..........decoded",ans:"D",rate:"85%",exCn:"在標準溝通模型中：\n1. 傳遞者將意念轉化為信息 → **編碼（Encoding）**\n2. 透過適合的**渠道（Channel）**傳送\n3. 接收者解讀信息 → **解碼（Decoding）**\n故選 D。",exEn:"In a standard communication process:\n1. The sender translates ideas into a message → **encoding**\n2. The message is sent through a suitable **channel**\n3. The receiver interprets the message → **decoding**\nThus, D is correct."}
 ];
 
+function fmtStem(s){
+  if(!s)return"";
+  const lines=s.split("\n");
+  let html="",i=0;
+  const isRow=l=>/^\s*\|.*\|\s*$/.test(l);
+  const isSep=l=>/^\s*\|[\s:\-|]+\|\s*$/.test(l);
+  const cells=r=>r.split("|").slice(1,-1).map(c=>c.trim());
+  while(i<lines.length){
+    if(isRow(lines[i])&&i+1<lines.length&&isSep(lines[i+1])){
+      const h=cells(lines[i]);i+=2;
+      const rows=[];
+      while(i<lines.length&&isRow(lines[i])&&!isSep(lines[i])){rows.push(cells(lines[i]));i++}
+      html+='<table class="qtable"><thead><tr>'+h.map(c=>"<th>"+c+"</th>").join("")+"</tr></thead><tbody>"+rows.map(r=>"<tr>"+r.map(c=>"<td>"+c+"</td>").join("")+"</tr>").join("")+"</tbody></table>";
+    }else{
+      const buf=[];
+      while(i<lines.length&&!(isRow(lines[i])&&i+1<lines.length&&isSep(lines[i+1]))){buf.push(lines[i]);i++}
+      html+=buf.join("<br>");
+    }
+  }
+  return html;
+}
 function init(){
   const toc=document.getElementById("toc");
   const qBox=document.getElementById("questions");
@@ -202,7 +226,7 @@ function init(){
         <button class="lang-btn" onclick="setLang(${i},1)">EN</button>
         <button class="lang-btn" onclick="setLang(${i},2)">雙語</button>
       </div>
-      <div class="qtext" id="qt${i}">${d.cn.replace(/\n/g,"<br>")}</div>
+      <div class="qtext" id="qt${i}">${fmtStem(d.cn)}</div>
       <div class="qopts" id="qo${i}">
         ${opts.map((o,j)=>`<div class="opt" data-idx="${i}" data-opt="${o.charAt(0)}" onclick="checkAns(${i},'${o.charAt(0)}')">${o}</div>`).join('')}
       </div>

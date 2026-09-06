@@ -22,6 +22,10 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 .qnum{font-size:18px;font-weight:600;color:#a67c52}
 .qtopic{font-size:12px;color:#9e8c7a;margin:6px 0 10px}
 .qtext{font-size:14px;margin-bottom:14px;white-space:pre-line}
+.qtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px;background:#fffdf8;white-space:normal}
+.qtable th,.qtable td{border:1px solid #d4c5b0;padding:6px 10px;text-align:center}
+.qtable thead th{background:#f5ebe0;color:#6b5344;font-weight:600}
+.qtable tbody tr:nth-child(even){background:#faf3ea}
 .qopts{display:flex;flex-direction:column;gap:8px}
 .opt{padding:10px 14px;border:2px solid #e0d6ca;border-radius:10px;cursor:pointer;font-size:13px;transition:.15s;white-space:pre-line;background:#fffdf8}
 .opt:hover{border-color:#c9a87c;background:#faf3ea}
@@ -560,6 +564,27 @@ function setLang(l){
   render();
 }
 
+function fmtStem(s){
+  if(!s)return"";
+  const lines=s.split("\n");
+  let html="",i=0;
+  const isRow=l=>/^\s*\|.*\|\s*$/.test(l);
+  const isSep=l=>/^\s*\|[\s:\-|]+\|\s*$/.test(l);
+  const cells=r=>r.split("|").slice(1,-1).map(c=>c.trim());
+  while(i<lines.length){
+    if(isRow(lines[i])&&i+1<lines.length&&isSep(lines[i+1])){
+      const h=cells(lines[i]);i+=2;
+      const rows=[];
+      while(i<lines.length&&isRow(lines[i])&&!isSep(lines[i])){rows.push(cells(lines[i]));i++}
+      html+='<table class="qtable"><thead><tr>'+h.map(c=>"<th>"+c+"</th>").join("")+"</tr></thead><tbody>"+rows.map(r=>"<tr>"+r.map(c=>"<td>"+c+"</td>").join("")+"</tr>").join("")+"</tbody></table>";
+    }else{
+      const buf=[];
+      while(i<lines.length&&!(isRow(lines[i])&&i+1<lines.length&&isSep(lines[i+1]))){buf.push(lines[i]);i++}
+      html+=buf.join("<br>");
+    }
+  }
+  return html;
+}
 function render(){
   const q=pool[cur];
   if(!q)return;
@@ -575,7 +600,7 @@ function render(){
   }
   pOpts=parseOpts(raw);
   const p=pOpts;
-  document.getElementById("qtxt").innerHTML=(p.stem||"").replace(/\n/g,"<br>");
+  document.getElementById("qtxt").innerHTML=fmtStem(p.stem||"");
   const ob=document.getElementById("qopts");
   ob.innerHTML="";
   p.opts.forEach((o,i)=>{
