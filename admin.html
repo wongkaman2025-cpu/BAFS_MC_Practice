@@ -61,6 +61,14 @@ body{font-family:"Noto Sans TC","Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",
 <div id="dashboard" class="hidden">
 <div class="stats-grid" id="statsGrid"></div>
 <div class="card">
+<h2>✏️ 修改課題分類名稱</h2>
+<div id="tnmFields"></div>
+<div style="margin-top:12px;text-align:right">
+<button class="btn bp" onclick="saveTopicNames()" style="padding:8px 20px">儲存修改</button>
+</div>
+<div id="tnmMsg" style="font-size:12px;color:#6b8e5a;margin-top:8px;text-align:right"></div>
+</div>
+<div class="card">
 <h2>👥 學生答題記錄</h2>
 <div style="margin-bottom:10px">
 <input type="text" id="userSearch" placeholder="搜尋學生姓名或班別..." style="padding:7px 12px;border-radius:8px;border:1px solid #d4c5b0;font-size:13px;background:#fffdf8;width:100%">
@@ -113,10 +121,38 @@ function doLogin(){
     document.getElementById("loginSection").classList.add("hidden");
     document.getElementById("dashboard").classList.remove("hidden");
     loadDashboard();
+    loadTopicNames();
   }else{
     document.getElementById("pwdErr").classList.remove("hidden");
     setTimeout(()=>document.getElementById("pwdErr").classList.add("hidden"),2000);
   }
+}
+
+// Topic Name Editor
+const majorCats=["營商環境","基礎管理","主要商業功能","中小型企業","基礎個人理財","商業道德與社會責任","out of syllabus"];
+let customTopicNames=JSON.parse(localStorage.getItem("bafsCustomTopicNames")||"{}");
+function loadTopicNames(){
+  const f=document.getElementById("tnmFields");
+  f.innerHTML="";
+  majorCats.forEach(t=>{
+    const d=document.createElement("div");
+    d.style.cssText="display:flex;align-items:center;gap:8px;margin-bottom:8px";
+    d.innerHTML='<label style="min-width:140px;font-size:13px;font-weight:500;color:#6b5344">'+t+'</label><input value="'+(customTopicNames[t]||"")+'" placeholder="'+t+'" data-orig="'+t+'" style="flex:1;padding:6px 10px;border:1px solid #d4c5b0;border-radius:8px;font-size:13px;background:#fffdf8">';
+    f.appendChild(d);
+  });
+}
+function saveTopicNames(){
+  const inputs=document.querySelectorAll("#tnmFields input");
+  customTopicNames={};
+  inputs.forEach(inp=>{
+    const v=inp.value.trim();
+    const orig=inp.dataset.orig;
+    if(v&&v!==orig)customTopicNames[orig]=v;
+  });
+  localStorage.setItem("bafsCustomTopicNames",JSON.stringify(customTopicNames));
+  const msg=document.getElementById("tnmMsg");
+  msg.textContent="已儲存！返回練習頁面後生效";
+  setTimeout(()=>msg.textContent="",3000);
 }
 
 function loadDashboard(){
