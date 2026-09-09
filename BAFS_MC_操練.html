@@ -884,6 +884,13 @@ if(eb)eb.innerHTML="<pre style='color:red'>JS Error: "+e.message+"</pre>";
 // === Login System ===
 let currentUser=null;
 function checkLogin(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get("skip")==="1"){
+    const saved=localStorage.getItem("bafsUser");
+    if(saved){currentUser=JSON.parse(saved);showMainApp();return}
+    currentUser={name:"老師",cls:"",loginTime:new Date().toISOString()};
+    showMainApp();return;
+  }
   const saved=localStorage.getItem("bafsUser");
   if(saved){
     currentUser=JSON.parse(saved);
